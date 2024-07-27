@@ -11,6 +11,11 @@ function Home() {
       ...form,
       [e.target.name]: e.target.value
     })
+    enableButton()
+  }
+  // :invalid要素が存在しない場合、ボタンのdisable属性を削除する
+  const enableButton = () => {
+    document.querySelector('button').removeAttribute('disabled');
   }
   const showMessage = () => {
     alert('ログインしました。')
@@ -18,9 +23,9 @@ function Home() {
   return (
     <>
     <form>
-    <p><label>Email:<input type="email" name="email" onChange={handleForm} value={form.email} /></label></p>
-    <p><label>Password:<input type="password" name="password"  onChange={handleForm} value={form.password} /></label></p>
-    <p><button type="submit" onClick={showMessage}>ログイン</button></p>
+    <p><label htmlFor="email">Email:<input type="email" name="email" id="email" onChange={handleForm} value={form.email} required /></label></p>
+    <p><label htmlFor="password">Password:<input type="password" name="password" id="password" onChange={handleForm} value={form.password} required /></label></p>
+    <p><button type="submit" onClick={showMessage} disabled>ログイン</button></p>
     </form>
     </>
   )
