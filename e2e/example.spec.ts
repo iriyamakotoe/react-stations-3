@@ -17,7 +17,7 @@ test('passwordのtype属性がpassword,値が必須になっているかどう�
 });
 
 test('emailへ値を入力して判定する', async ({ page }) => {
-  await page.getByLabel("email").fill('iriyama')
+  await page.getByLabel("email").fill('iriyama@icloud.com')
   await expect(page.getByLabel("email")).toHaveValue('iriyama@icloud.com');
 });
 

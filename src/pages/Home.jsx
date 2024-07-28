@@ -2,7 +2,8 @@ import React from 'react'
 import { useState } from "react";
 import './Home.scss'
 
-export function Home() {
+export const Home = () => {
+
   const [form, setForm] = useState({
     email: '',
     password: ''
@@ -24,3 +25,5 @@ export function Home() {
     </>
   )
 }
+
+export default Home
