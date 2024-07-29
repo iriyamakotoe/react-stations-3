@@ -55,8 +55,8 @@ export const SignUp = () => {
 
   return (
     <>
-      <h1>ユーザー新規登録画面</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h2>ユーザー新規登録画面</h2>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <p><label htmlFor="name">お名前：</label><input type="text" 
         {...register("name", {
           required: 'お名前は必須です'
@@ -78,10 +78,10 @@ export const SignUp = () => {
           required: 'パスワードは必須です',
           pattern: {
             value: /^[a-zA-Z0-9]{6,12}$/i,
-            message: 'パスワードの形式が不正です'
+            message: '半角英数字、6〜12文字で入力してください'
           }
         })} /><br />
-        <span>半角英数字、6〜12文字以下で設定してください</span><br />
+        <span>※パスワードは半角英数字、6〜12文字で入力してください。</span><br />
         <span className="error">{errors.password?.message}</span></p>
 
         {/* <p><label htmlFor="icon">ユーザーアイコン：</label><input type="file" 

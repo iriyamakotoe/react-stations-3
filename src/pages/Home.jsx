@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { counterAtom } from "../store/atom";
-import { Header } from "../components/Header";
 import { ReviewList } from "../components/ReviewList";
 import { PageControl } from "../components/PageControl";
 import "./home.scss";
@@ -31,9 +30,8 @@ export const Home = () => {
 
   return (
     <>
-      <Header />
       <main>
-      <h1>レビュー一覧</h1>
+      <h2>レビュー一覧</h2>
       <ReviewList review={review} />
       <PageControl handlePagePrev={() => handlePagePrev()} handlePageNext={() => handlePageNext()} />
       </main>
