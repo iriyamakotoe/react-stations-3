@@ -1,6 +1,9 @@
 @use "../variables" as var;
 @use "../mixins" as mx;
 
-input:invalid {
-  // border: 1px solid #ff0000;
+main {
+  @include mx.sign-content-width;
+}
+.error {
+  color: var.$red;
 }

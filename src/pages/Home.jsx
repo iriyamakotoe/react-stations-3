@@ -1,52 +1,42 @@
-import React from "react";
-import { useState } from "react";
-import "./Home.scss";
+import React, { useState, useEffect } from 'react'
+import { useRecoilState } from 'recoil'
+import { counterAtom } from "../store/atom";
+import { Header } from "../components/Header";
+import { ReviewList } from "../components/ReviewList";
+import { PageControl } from "../components/PageControl";
+import "./home.scss";
 
 export const Home = () => {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-  const handleForm = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const [review, setReview] = useState([])
+  const [counter, setCounter] = useRecoilState(counterAtom)
+
+  const fetchReview = () => {
+    console.log(counter)
+    fetch('https://railway.bookreview.techtrain.dev/public/books?offset=' + (counter*10))
+    .then(res => res.json())
+    .then(data => {
+      setReview(data)
+    })
+  }
+  useEffect(() => {
+    fetchReview()
+  }, [counter])
+
+  const handlePagePrev = () => {
+    setCounter((c) => c - 1)
+  }
+  const handlePageNext = () => {
+      setCounter((c) => c + 1)
+  }
+
   return (
     <>
-      <h1>ログイン</h1>
-      <form>
-        <p>
-          <label htmlFor="email">
-            Email:
-            <input
-              type="email"
-              name="email"
-              id="email"
-              onChange={handleForm}
-              value={form.email}
-              required
-            />
-          </label>
-        </p>
-        <p>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              name="password"
-              id="password"
-              onChange={handleForm}
-              value={form.password}
-              required
-            />
-          </label>
-        </p>
-        <p>
-          <button type="submit">ログイン</button>
-        </p>
-      </form>
+      <Header />
+      <main>
+      <h1>レビュー一覧</h1>
+      <ReviewList review={review} />
+      <PageControl handlePagePrev={() => handlePagePrev()} handlePageNext={() => handlePageNext()} />
+      </main>
     </>
   );
 };
