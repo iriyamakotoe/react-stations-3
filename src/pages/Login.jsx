@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 
 import "./login.scss";
@@ -10,7 +9,7 @@ export const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate()
+
   const [errorMessage, setErrorMessage] = useState('')
 
   const onSubmit = (data) => {
@@ -24,7 +23,7 @@ export const Login = () => {
     .then((res) => {
       console.log(res.status)
       if(res.status == '200') {
-        navigate('/')
+        console.log('ログインしました')
       } else if(res.status == '400') {
         setErrorMessage(`バリデーションエラー`)
       } else if(res.status == '401') {

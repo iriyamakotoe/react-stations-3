@@ -35,6 +35,8 @@ export const SignUp = () => {
       }
     })
   }
+
+  // 画像をアップロードする
   // const uploadIcon = (data) =>  {
   //   fetch('https://railway.bookreview.techtrain.dev/uploads', {
   //     method: 'POST',
