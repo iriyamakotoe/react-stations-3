@@ -57,7 +57,8 @@ export const SignUp = () => {
 
   return (
     <>
-      <h2>ユーザー新規登録画面</h2>
+    <main>
+      <h2 className='page-title'>ユーザー新規登録画面</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <p><label htmlFor="name">お名前：</label><input type="text" 
         {...register("name", {
@@ -95,6 +96,7 @@ export const SignUp = () => {
         <input type="submit" />
         <p className="error">{errorMessage}</p>
       </form>
+      </main>
     </>
   );
 };

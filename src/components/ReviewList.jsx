@@ -4,8 +4,8 @@ import "./reviewlist.scss";
 export const ReviewList = (props) => {
   return (
     <>
-      <ul>
-      {props.review.map((obj) => <li key={obj.id}>{obj.title}</li>)}
+      <ul className="review-list">
+      {props.review.map((obj) => <li key={obj.id} className=''>{obj.title}</li>)}
       </ul>
     </>
   );

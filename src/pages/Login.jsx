@@ -40,7 +40,8 @@ export const Login = () => {
 
   return (
     <>
-      <h2>ログイン</h2>
+    <main>
+      <h2 className='page-title'>ログイン</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <p><label htmlFor="email" aria-label="email">メールアドレス：</label><input type="email" id="email" 
         {...register("email", { 
@@ -64,6 +65,7 @@ export const Login = () => {
         <button type="submit" aria-label='ログイン'>ログイン</button>
         <p className="error form-error">{errorMessage}</p>
       </form>
+    </main>
     </>
   );
 };
