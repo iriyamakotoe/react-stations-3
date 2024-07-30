@@ -31,7 +31,20 @@ export const SignUp = () => {
         console.log('ユーザー登録に成功しました！');
         navigate('/login')
       } else {
-        setErrorMessage(`ユーザー登録に失敗しました。${res.status}`)
+        if(res.status == '200') {
+          console.log('ユーザー登録に成功しました！');
+          navigate('/login')
+        } else if(res.status == '400') {
+          setErrorMessage(`バリデーションエラー`)
+        } else if(res.status == '401') {
+          setErrorMessage(`認証エラー`)
+        } else if(res.status == '409') {
+          setErrorMessage(`このメールアドレスは既に登録されています`)
+        } else if(res.status == '500') {
+          setErrorMessage(`サーバでエラーが発生しました。`)
+        } else if(res.status == '503') {
+          setErrorMessage(`現在サービスを利用できません。Herokuのコールドスタートの影響の可能性もあります。もう一度お試しいただくか、1日経っても改善しない場合は、管理者にお問い合わせください。`)
+        }
       }
     })
   }
@@ -93,8 +106,7 @@ export const SignUp = () => {
         <span className="error">{errors.icon?.message}</span></p> */}
         
         <p className='flex justify-center'><button type="submit">送信</button></p>
-
-        <p className="error">{errorMessage}</p>
+        <p className="error mt-5 text-center">{errorMessage}</p>
       </form>
       </main>
     </>

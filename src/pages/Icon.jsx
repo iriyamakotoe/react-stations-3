@@ -31,17 +31,18 @@ const [errorMessage, setErrorMessage] = useState('')
       })
   }
 
-
   return (
     <>
-      <h2>ユーザー新規登録画面</h2>
+    <main>
+      <h2 className='page-title'>ユーザーアイコン登録画面</h2>
       <form noValidate="novalidate" encType="multipart/form-data">
-        <p><label htmlFor="icon">ユーザーアイコン：</label><input type="file" name="input_file" ref={inputRef} /><br /><br />
-        <span>jpg, pngファイルサイズは1MB以下</span><br />
+        <p className='mb-3'><label htmlFor="icon">アイコン：</label><input type="file" name="input_file" ref={inputRef} /></p>
+        <p><span className='inline-block text-gray mb-10'>※jpg, png、ファイルサイズは1MB以下</span><br />
         </p>
-        <input type="button" value="登録" onClick={onSubmit} />
-        <p className="error">{errorMessage}</p>
+        <p className='flex justify-center'><button type="button" value="" onClick={onSubmit}>登録</button></p>
+        <p className="error mt-5 text-center">{errorMessage}</p>
       </form>
+      </main>
     </>
   );
 };

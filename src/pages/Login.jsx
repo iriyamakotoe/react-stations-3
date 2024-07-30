@@ -63,7 +63,7 @@ export const Login = () => {
         <span className="error password-error">{errors.password?.message}</span></p>
         
         <p className='flex justify-center'><button type="submit" aria-label='ログイン'>ログイン</button></p>
-        <p className="error form-error">{errorMessage}</p>
+        <p className="error mt-5 text-center">{errorMessage}</p>
       </form>
     </main>
     </>
