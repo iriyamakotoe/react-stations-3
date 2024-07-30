@@ -5,7 +5,7 @@ export const counterAtom = atom({
     default: 0
 })
 
-export const disableAtom = atom({
-    key: 'disableAtom',
-    default: 'disabled'
+export const reviewAtom = atom({
+    key: 'reviewAtom',
+    default: []
 })

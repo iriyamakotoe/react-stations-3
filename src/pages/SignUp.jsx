@@ -60,13 +60,13 @@ export const SignUp = () => {
     <main>
       <h2 className='page-title'>ユーザー新規登録画面</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
-        <p><label htmlFor="name">お名前：</label><input type="text" 
+        <p className='mb-10'><label htmlFor="name">お名前：</label><input type="text" 
         {...register("name", {
           required: 'お名前は必須です'
         })} /><br />
         <span className="error">{errors.name?.message}</span></p>
 
-        <p><label htmlFor="email">メールアドレス：</label><input type="email" 
+        <p className='mb-10'><label htmlFor="email">メールアドレス：</label><input type="email" 
         {...register("email", { 
           required: 'メールアドレスは必須です',
           pattern: {
@@ -76,7 +76,7 @@ export const SignUp = () => {
         })} /><br />
         <span className="error">{errors.email?.message}</span></p>
 
-        <p><label htmlFor="password">パスワード：</label><input type="password" 
+        <p className='mb-10'><label htmlFor="password">パスワード：</label><input type="password" 
         {...register("password", {
           required: 'パスワードは必須です',
           pattern: {
@@ -84,7 +84,7 @@ export const SignUp = () => {
             message: '半角英数字、6〜12文字で入力してください'
           }
         })} /><br />
-        <span>※パスワードは半角英数字、6〜12文字で入力してください。</span><br />
+        <span className='text-gray text-s mt-3 inline-block'>※パスワードは半角英数字、6〜12文字で入力してください。</span><br />
         <span className="error">{errors.password?.message}</span></p>
 
         {/* <p><label htmlFor="icon">ユーザーアイコン：</label><input type="file" 
@@ -92,8 +92,8 @@ export const SignUp = () => {
         <span>jpg, pngファイルサイズは1MB以下</span><br />
         <span className="error">{errors.icon?.message}</span></p> */}
         
+        <p className='flex justify-center'><button type="submit">送信</button></p>
 
-        <input type="submit" />
         <p className="error">{errorMessage}</p>
       </form>
       </main>

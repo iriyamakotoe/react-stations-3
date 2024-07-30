@@ -43,7 +43,7 @@ export const Login = () => {
     <main>
       <h2 className='page-title'>ログイン</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
-        <p><label htmlFor="email" aria-label="email">メールアドレス：</label><input type="email" id="email" 
+        <p className='mb-10'><label htmlFor="email" aria-label="email">メールアドレス：</label><input type="email" id="email" 
         {...register("email", { 
           required: 'メールアドレスは必須です',
           pattern: {
@@ -52,7 +52,7 @@ export const Login = () => {
           }
         })} /><br />
         <span className="error email-error">{errors.email?.message}</span></p>
-        <p><label htmlFor="password" aria-label="password">パスワード：</label><input type="password" id="password" 
+        <p className='mb-10'><label htmlFor="password" aria-label="password">パスワード：</label><input type="password" id="password" 
         {...register("password", {
           required: 'パスワードは必須です',
           pattern: {
@@ -62,7 +62,7 @@ export const Login = () => {
         })} /><br />
         <span className="error password-error">{errors.password?.message}</span></p>
         
-        <button type="submit" aria-label='ログイン'>ログイン</button>
+        <p className='flex justify-center'><button type="submit" aria-label='ログイン'>ログイン</button></p>
         <p className="error form-error">{errorMessage}</p>
       </form>
     </main>

@@ -24,13 +24,21 @@ main {
     @include mx.sign-content-width;
 }
 h2.page-title {
-    font-size: 20px;
-    font-size: 2.0rem;
+    font-size: 26px;
+    font-size: 2.6rem;
     margin-bottom: 1em;
+    text-align: center;
+    font-weight: bold;
 }
 input,
 button {
     border: 1px solid var.$gray-light;
     padding: 5px !important;
     border-radius: 3px;
+}
+
+button {
+    background-color: var.$gray !important;
+    color: #fff !important;
+    padding: 5px 20px !important;
 }
