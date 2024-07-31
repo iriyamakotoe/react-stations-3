@@ -41,21 +41,30 @@ export const SignUp = () => {
 
   // 画像をアップロードする
   const uploadIcon = (inputData) =>  {
-    const data = new FormData();
-    data.append('icon', inputData.iconUrl.item(0))
-    fetch('https://railway.bookreview.techtrain.dev/uploads', {
-      method: 'POST',
-      headers:{
-        'Authorization': `Bearer ${token}`
+    new Compressor(inputData.iconUrl.item(0), {
+      quality: 0.6,
+  
+      success(result) {
+        const data = new FormData();
+        data.append('icon', result, result.name )
+        fetch('https://railway.bookreview.techtrain.dev/uploads', {
+          method: 'POST',
+          headers:{
+            'Authorization': `Bearer ${cookies.token}`
+          },
+          body: data
+        })
+        .then((res) => {
+          if(res.ok) {
+            navigate('/')
+          } else {
+            setErrorMessage(`画像登録エラーが発生しました：${res.status}`)
+          }
+        })
       },
-      body: data
-    })
-    .then((res) => {
-      if(res.ok) {
-        navigate('/')
-      } else {
-        setErrorMessage(`画像登録エラーが発生しました：${res.status}`)
-      }
+      error(err) {
+        console.log(err.message);
+      },
     })
   }
 
@@ -102,7 +111,7 @@ export const SignUp = () => {
         <span className='text-gray text-s mt-3 inline-block'>※登録できる画像：拡張子 - jpg・png、サイズ - 1MB以内</span><br />
         <span className="error">{errors.iconUrl?.message}</span></p>
         
-        <p className='flex justify-center mt-10'><button type="submit"s>送信</button></p>
+        <p className='flex justify-center mt-10'><button type="submit">送信</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
       </form>
       </main>

@@ -17,6 +17,7 @@ export const Login = () => {
   const onSubmit = (data) => {
     setErrorMessage('')
     fetch('https://railway.bookreview.techtrain.dev/signin', {
+      method: 'POST',
       headers:{'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     })

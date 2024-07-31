@@ -5,8 +5,8 @@ import './header.scss'
 
 export const Header = () => {
   const [cookies, setCookie, removeCookie ] = useCookies()
-  const signIn = () => {
-    console.log('signIn')
+  const isSignIn = () => {
+    console.log('isSignIn')
     fetch('https://railway.bookreview.techtrain.dev/users', {
       headers:{
         'Authorization': `Bearer ${cookies.token}`
@@ -18,12 +18,16 @@ export const Header = () => {
       setCookie('iconUrl', json.iconUrl)
     })
   }
-  const signOut = () => {
-    removeCookie('token', { path: '/' }, { httpOnly: true });
+  const isSignOut = () => {
+    removeCookie('token', { path: '/' }, { httpOnly: true })
+    removeCookie('name', { path: '/' }, { httpOnly: true })
+    removeCookie('email', { path: '/' }, { httpOnly: true })
+    removeCookie('password', { path: '/' }, { httpOnly: true })
+    removeCookie('iconUrl', { path: '/' }, { httpOnly: true })
     console.log("ログアウトしました")
   }
   useEffect(() => {
-    if(cookies.token) return signIn()
+    if(cookies.token) return isSignIn()
   }, [])
 
   return (
@@ -34,7 +38,7 @@ export const Header = () => {
         <ul>
           <li>こんにちは、{cookies.name}さん！</li>
           <li><Link to="/profile">ユーザー情報編集</Link></li>
-          <li><Link to="/login" onClick={signOut}>ログアウト</Link></li>
+          <li><Link to="/login" onClick={isSignOut}>ログアウト</Link></li>
         </ul>
         
       ) : (
