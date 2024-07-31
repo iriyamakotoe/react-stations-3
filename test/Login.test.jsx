@@ -1,11 +1,11 @@
 import React from "react";
 import { render, screen } from "@testing-library/react"
 import { expect, test, describe } from "vitest"
-import { Login } from "../src/pages/Login"
+import { SignIn } from "../src/pages/SignIn"
 
 describe("ログイン画面のレンダリング", () => {
   test("ログイン画面のレンダリング", () => {
-    render(<Login />);
+    render(<SignIn />);
 
     const title = screen.getByRole("heading", { level: 2 });
     expect(title).toHaveTextContent("ログイン");

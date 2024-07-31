@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ReviewList } from "../components/ReviewList"
 import { Pagenation } from "../components/Pagenation";
 import "./home.scss";

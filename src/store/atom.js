@@ -9,3 +9,8 @@ export const reviewAtom = atom({
     key: 'reviewAtom',
     default: []
 })
+
+// export const isSignIn = atom({
+//     key: 'isSignIn',
+//     default: false
+// })

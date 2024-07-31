@@ -14,21 +14,23 @@ const [errorMessage, setErrorMessage] = useState('')
 
     const fd = new FormData();
     fd.append('icon', file);
-    console.log(fd.get('icon'))
+    console.log(fd)
   
 
     // 画像をアップロードする
     fetch('https://railway.bookreview.techtrain.dev/uploads', {
         method: 'POST',
-        // headers:{'Authorization': ''},
-        body: fd.get('icon')
-      })
-      .then((res) => {
-        console.log(res)
-        if(!res.ok) {
-          setErrorMessage(`画像登録に失敗しました。${res.status}`)
-        }
-      })
+        headers: {
+          'authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjI0NjIzNTAsImlhdCI6MTcyMjM3NTk1MCwic3ViIjoiNTQ1NDY1NTczNTQiLCJ1c2VyX2lkIjoiOWY2N2Y1ZWItNDZiNy00N2E0LWI1NTEtZmYzNGIwNjEyOGFlIn0.e2hKr_cvFEzv1uqjmPSEYSua_yH55PCbIu5_Cy5KVhY`
+        },
+        body: fd
+    })
+    .then((res) => {
+      console.log(res)
+      if(!res.ok) {
+        setErrorMessage(`画像登録に失敗しました。${res.status}`)
+      }
+    })
   }
 
   return (
