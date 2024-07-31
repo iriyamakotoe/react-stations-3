@@ -16,12 +16,10 @@ export const Login = () => {
 
   const onSubmit = (data) => {
     setErrorMessage('')
-    const requestOptions = {
-      method: 'POST',
+    fetch('https://railway.bookreview.techtrain.dev/signin', {
       headers:{'Content-Type': 'application/json'},
       body: JSON.stringify(data)
-    };
-    fetch('https://railway.bookreview.techtrain.dev/signin',requestOptions)
+    })
     .then(res => {
       if (res.ok) return res.json()
       else

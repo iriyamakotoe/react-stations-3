@@ -16,15 +16,15 @@ export const SignUp = () => {
 
   const [errorMessage, setErrorMessage] = useState('')
 
-  const onSubmit = (form) => {
+  const onSubmit = (inputData) => {
     setErrorMessage('')
-    const data = { ...form, icon: {} }
+    const data = { ...inputData, icon: {} }
     fetch('https://railway.bookreview.techtrain.dev/users', {
       method: 'POST',
       headers:{'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     })
-    .then((res) => {
+    .then(res => {
       if (res.ok) return res.json()
         else
           res.status == '409' 
@@ -32,19 +32,21 @@ export const SignUp = () => {
           : setErrorMessage(`エラーが発生しました：${res.status}`)
     })
     .then(json => {
+      setCookie('email', data.email)
+      setCookie('password', data.password)
       setCookie('token', json.token)
-      uploadIcon(form)
+      uploadIcon(inputData)
     })
   }
 
   // 画像をアップロードする
-  const uploadIcon = (form) =>  {
+  const uploadIcon = (inputData) =>  {
     const data = new FormData();
-    data.append('icon', form.iconUrl.item(0))
+    data.append('icon', inputData.iconUrl.item(0))
     fetch('https://railway.bookreview.techtrain.dev/uploads', {
       method: 'POST',
       headers:{
-        'Authorization': `Bearer ${cookies.token}`
+        'Authorization': `Bearer ${token}`
       },
       body: data
     })
@@ -57,7 +59,7 @@ export const SignUp = () => {
     })
   }
 
-  // if (cookies.token) return <Navigate to="/" />
+  // if (cookies.auth == 'isSignIn') return <Navigate to="/" />
 
   return (
     <>
@@ -96,11 +98,11 @@ export const SignUp = () => {
 
         <p><label htmlFor="iconUrl">ユーザーアイコン：</label>
         <input type="file" 
-        {...register("iconUrl")} /><br /><br />
-        <span>※jpg, png、ファイルサイズは1MB以下</span><br />
+        {...register("iconUrl")} accept="image/png, image/jpg" /><br />
+        <span className='text-gray text-s mt-3 inline-block'>※登録できる画像：拡張子 - jpg・png、サイズ - 1MB以内</span><br />
         <span className="error">{errors.iconUrl?.message}</span></p>
         
-        <p className='flex justify-center'><button type="submit">送信</button></p>
+        <p className='flex justify-center mt-10'><button type="submit"s>送信</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
       </form>
       </main>
