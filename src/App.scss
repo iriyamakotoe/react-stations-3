@@ -36,9 +36,14 @@ button {
     padding: 5px !important;
     border-radius: 3px;
 }
-
 button {
     background-color: var.$gray !important;
     color: #fff !important;
     padding: 5px 20px !important;
+}
+button:disabled {
+    opacity: 0.3;
+}
+.error {
+    color: var.$red;
 }

@@ -10,8 +10,8 @@ export const ReviewList = () => {
     console.log(counter)
     fetch('https://railway.bookreview.techtrain.dev/public/books?offset=' + (counter*10))
     .then(res => res.json())
-    .then(data => {
-      setReview(data)
+    .then(json => {
+      setReview(json)
     })
   }
   useEffect(() => {

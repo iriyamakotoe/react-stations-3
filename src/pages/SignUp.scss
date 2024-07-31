@@ -1,9 +1,3 @@
 @use "../variables" as var;
 @use "../mixins" as mx;
 
-main {
-    @include mx.sign-content-width;
-}
-.error {
-    color: var.$red;
-}

@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
-import "./signin.scss";
+import "./login.scss";
 
-export const SignIn = () => {
+export const Login = () => {
   const navigate = useNavigate()
   const [cookies, setCookie, ] = useCookies()
-  console.log(cookies)
   const {
     register,
     handleSubmit,
@@ -23,14 +22,16 @@ export const SignIn = () => {
       body: JSON.stringify(data)
     };
     fetch('https://railway.bookreview.techtrain.dev/signin',requestOptions)
-    .then((res) => {
+    .then(res => {
       if (res.ok) return res.json()
       else
         res.status == '403' 
         ? setErrorMessage('パスワードが正しくありません。') 
-        : setErrorMessage(`ログインに失敗しました：${res.status}`)
+        : setErrorMessage(`エラーが発生しました：${res.status}`)
     })
     .then(json => {
+      setCookie('email', data.email)
+      setCookie('password', data.password)
       setCookie('token', json.token)
       navigate('/')
     })
@@ -78,4 +79,4 @@ export const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Login;
