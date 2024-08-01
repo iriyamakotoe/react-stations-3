@@ -10,7 +10,7 @@ export const reviewAtom = atom({
     default: []
 })
 
-// export const isSignIn = atom({
-//     key: 'isSignIn',
-//     default: false
-// })
+export const tokenAtom = atom({
+    key: 'token',
+    default: null
+})

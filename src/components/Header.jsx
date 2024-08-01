@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
+import { useRecoilState } from 'recoil'
+import { tokenAtom } from "../store/atom"
 import './header.scss'
 
 export const Header = () => {
   const [cookies, setCookie, removeCookie ] = useCookies()
+  const [token, setToken] = useRecoilState(tokenAtom)
   const isSignIn = () => {
     console.log('isSignIn')
     fetch('https://railway.bookreview.techtrain.dev/users', {
@@ -18,6 +21,7 @@ export const Header = () => {
       setCookie('iconUrl', json.iconUrl)
     })
   }
+
   const isSignOut = () => {
     console.log("isSignOut")
     removeCookie('token', { path: '/' }, { httpOnly: true })
@@ -29,7 +33,7 @@ export const Header = () => {
 
   useEffect(() => {
     if(cookies.token) return isSignIn()
-  }, [])
+  }, [token])
 
   return (
     <>

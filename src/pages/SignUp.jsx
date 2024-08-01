@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
-import { useForm } from "react-hook-form";
-import Compressor from "compressorjs";
-import { Header } from "../components/Header";
+import { useForm } from "react-hook-form"
+import { useRecoilState } from 'recoil'
+import { tokenAtom } from "../store/atom"
+import { Header } from "../components/Header"
+import { InputFileItem } from "../components/InputFileItem"
 import "./signup.scss";
 
 export const SignUp = () => {
-  const navigate = useNavigate()
   const [cookies, setCookie, ] = useCookies()
+  const [token, setToken] = useRecoilState(tokenAtom)
   const {
     register,
     handleSubmit,
@@ -35,37 +37,7 @@ export const SignUp = () => {
     .then(json => {
       setCookie('email', data.email)
       setCookie('password', data.password)
-      setCookie('token', json.token)
-      uploadIcon(inputData)
-    })
-  }
-
-  // 画像をアップロードする
-  const uploadIcon = (inputData) =>  {
-    new Compressor(inputData.iconUrl.item(0), {
-      quality: 0.6,
-  
-      success(result) {
-        const data = new FormData();
-        data.append('icon', result, result.name )
-        fetch('https://railway.bookreview.techtrain.dev/uploads', {
-          method: 'POST',
-          headers:{
-            'Authorization': `Bearer ${cookies.token}`
-          },
-          body: data
-        })
-        .then((res) => {
-          if(res.ok) {
-            navigate('/')
-          } else {
-            setErrorMessage(`画像登録エラーが発生しました：${res.status}`)
-          }
-        })
-      },
-      error(err) {
-        console.log(err.message);
-      },
+      setToken(json.token)
     })
   }
 
@@ -107,12 +79,8 @@ export const SignUp = () => {
         <span className='text-gray text-s mt-3 inline-block'>※パスワードは半角英数字、6〜12文字で入力してください。</span><br />
         <span className="error">{errors.password?.message}</span></p>
 
-        <p><label htmlFor="iconUrl">ユーザーアイコン：</label>
-        <input type="file" 
-        {...register("iconUrl")} accept="image/png, image/jpg" /><br />
-        <span className='text-gray text-s mt-3 inline-block'>※登録できる画像：拡張子 - jpg・png、サイズ - 1MB以内</span><br />
-        <span className="error">{errors.iconUrl?.message}</span></p>
-        
+        <InputFileItem />
+
         <p className='flex justify-center mt-10'><button type="submit">送信</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
       </form>
