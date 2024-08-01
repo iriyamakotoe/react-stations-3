@@ -93,6 +93,7 @@ export const Profile = () => {
             message: 'メールアドレスの形式が不正です'
           }
         })} defaultValue={defaultValues?.email} /><br />
+        <span className='text-gray text-s mt-3 inline-block'>※変更不可</span><br />
         <span className="error">{errors.email?.message}</span></p>
 
         <p className='mb-10'><label htmlFor="password">パスワード：</label>
@@ -104,14 +105,13 @@ export const Profile = () => {
             message: '半角英数字、6〜12文字で入力してください'
           }
         })} defaultValue={defaultValues?.password} /><br />
-        <span className='text-gray text-s mt-3 inline-block'>※パスワードは半角英数字、6〜12文字で入力してください。</span><br />
+        <span className='text-gray text-s mt-3 inline-block'>※変更不可</span><br />
         <span className="error">{errors.password?.message}</span></p>
 
-        <p><img src={cookies.iconUrl} alt="" /></p>
-        <p><label htmlFor="iconUrl">ユーザーアイコン：</label>
+        <p className='flex items-center'><label htmlFor="iconUrl" className='mr-5'><img src={cookies.iconUrl} alt="ユーザーアイコン" /></label>
         <input type="file" 
-        {...register("iconUrl")} accept="image/png, image/jpg" /><br />
-        <span className='text-gray text-s mt-3 inline-block'>※登録できる画像：拡張子 - jpg・png、サイズ - 1MB以内</span><br />
+        {...register("iconUrl")} accept="image/png, image/jpg" /></p>
+        <p><span className='text-gray text-s mt-3 inline-block'>※登録できる画像：拡張子 - jpg・png、サイズ - 1MB以内</span><br />
         <span className="error">{errors.iconUrl?.message}</span></p>
         
         <p className='flex justify-center mt-10'><button type="submit">送信</button></p>

@@ -30,7 +30,7 @@ h2.page-title {
     text-align: center;
     font-weight: bold;
 }
-input,
+input:not([type="file"]),
 button {
     border: 1px solid var.$gray-light;
     padding: 5px !important;
