@@ -3,6 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form";
 import Compressor from "compressorjs";
+import { Header } from "../components/Header";
 import "./signup.scss";
 
 export const SignUp = () => {
@@ -68,10 +69,11 @@ export const SignUp = () => {
     })
   }
 
-  // if (cookies.auth == 'isSignIn') return <Navigate to="/" />
+  if (cookies.token) return <Navigate to="/" />
 
   return (
     <>
+    <Header />
     <main>
       <h2 className='page-title'>新規ユーザー登録画面</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">

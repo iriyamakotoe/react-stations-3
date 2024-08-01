@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import Compressor from "compressorjs";
+import { Header } from "../components/Header";
 import "./profile.scss";
 
 export const Profile = () => {
@@ -44,7 +45,7 @@ export const Profile = () => {
   
   const uploadIcon = (inputData) =>  {
     new Compressor(inputData.iconUrl.item(0), {
-      quality: 0.6,
+      quality: 0.8,
   
       success(result) {
         const data = new FormData();
@@ -72,6 +73,7 @@ export const Profile = () => {
 
   return (
     <>
+    <Header />
     <main>
       <h2 className='page-title'>ユーザー情報編集</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">

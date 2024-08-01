@@ -19,13 +19,14 @@ export const Header = () => {
     })
   }
   const isSignOut = () => {
+    console.log("isSignOut")
     removeCookie('token', { path: '/' }, { httpOnly: true })
     removeCookie('name', { path: '/' }, { httpOnly: true })
     removeCookie('email', { path: '/' }, { httpOnly: true })
     removeCookie('password', { path: '/' }, { httpOnly: true })
     removeCookie('iconUrl', { path: '/' }, { httpOnly: true })
-    console.log("ログアウトしました")
   }
+
   useEffect(() => {
     if(cookies.token) return isSignIn()
   }, [])

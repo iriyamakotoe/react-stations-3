@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
+import { Header } from "../components/Header";
 import "./login.scss";
 
 export const Login = () => {
@@ -36,10 +37,11 @@ export const Login = () => {
     })
   }
 
-  // if (cookies.token) return <Navigate to="/" />
+  if (cookies.token) return <Navigate to="/" />
 
   return (
     <>
+    <Header />
     <main>
       <h2 className='page-title'>ログイン</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
