@@ -7,7 +7,7 @@ import Compressor from "compressorjs";
 export const InputFileItem = (props) => {
   const [cookies, setCookie, ] = useCookies()
   const inputFileRef = useRef(null);
-  const [iconToken, setIconToken ] = useRecoilState(iconAtom)
+  const [iconToken, ] = useRecoilState(iconAtom)
   useEffect(() => {
     const file = inputFileRef.current.files[0]
     console.log(cookies.token)

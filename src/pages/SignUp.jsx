@@ -11,7 +11,7 @@ import "./signup.scss";
 
 export const SignUp = () => {
   const [cookies, setCookie, ] = useCookies()
-  const [iconToken, setIconToken ] = useRecoilState(iconAtom)
+  const [, setIconToken ] = useRecoilState(iconAtom)
   const defaultValues = {
     name: '',
     email: '',
@@ -43,7 +43,6 @@ export const SignUp = () => {
     })
     .then(json => {
       setCookie('token', json.token)
-      console.log(json.token)
       setCookie('email', data.email)
       setCookie('password', data.password)
       setIconToken(json.token)
