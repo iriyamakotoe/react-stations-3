@@ -10,7 +10,12 @@ export const reviewAtom = atom({
     default: []
 })
 
-export const tokenAtom = atom({
-    key: 'token',
+export const iconAtom = atom({
+    key: 'iconAtom',
     default: null
+})
+
+export const profileSuccessMessageAtom = atom({
+    key: 'profileSuccessMessageAtom',
+    default: ''
 })

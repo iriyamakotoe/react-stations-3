@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { useRecoilState } from 'recoil'
-import { tokenAtom } from "../store/atom"
+import { iconAtom } from "../store/atom"
 import { Header } from "../components/Header";
 import { InputItem } from "../components/InputItem"
 import { InputFileItem } from "../components/InputFileItem"
 import "./profile.scss";
 
 export const Profile = () => {
+  const navigate = useNavigate()
   const [cookies, setCookie, ] = useCookies()
-  const [token, setToken] = useRecoilState(tokenAtom)
+  const [iconToken, setIconToken ] = useRecoilState(iconAtom)
   const defaultValues = {
       name: cookies.name,
       email: cookies.email,
@@ -46,7 +48,8 @@ export const Profile = () => {
     })
     .then(json => {
       setCookie('name', json.name)
-      setToken(cookies.token)
+      setIconToken(cookies.token)
+      navigate('/profile')
       // setSuccessMessage(`変更が完了しました`)
     })
   }
@@ -68,27 +71,7 @@ export const Profile = () => {
         defaultValues={defaultValues.name}
         disabled={false} />
 
-        <InputItem 
-        register={register} 
-        type='email' 
-        id='email' 
-        label='メールアドレス' 
-        pattern={{}} 
-        errors={errors.email}
-        defaultValues={defaultValues.email}
-        disabled={true} />
-        <p><span className='text-gray text-s mt-3 inline-block'>※変更不可</span></p>
-        
-        <InputItem 
-        register={register} 
-        type='password' 
-        id='password' 
-        label='パスワード' 
-        pattern={{}} 
-        errors={errors.password}
-        defaultValues={defaultValues.password}
-        disabled={true} />
-        <p><span className='text-gray text-s mt-3 inline-block'>※変更不可</span></p>
+        <p className='mt-10'>メールアドレス：{cookies.email}</p>
 
         <InputFileItem errorMessage={errorMessage} setErrorMessage={setErrorMessage} />
         

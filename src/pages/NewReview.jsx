@@ -1,16 +1,11 @@
 import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
-import { useRecoilState } from 'recoil'
-import { tokenAtom } from "../store/atom"
 import { Header } from "../components/Header"
-import { InputFileItem } from "../components/InputFileItem"
 import "./newreview.scss";
 
 export const NewReview = () => {
   const [cookies, setCookie, ] = useCookies()
-  const [token, setToken] = useRecoilState(tokenAtom)
   const {
     register,
     handleSubmit,

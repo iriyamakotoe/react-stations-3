@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { useRecoilState } from 'recoil'
-import { tokenAtom } from "../store/atom"
+import { iconAtom } from "../store/atom"
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
 import { InputFileItem } from "../components/InputFileItem"
@@ -11,7 +11,7 @@ import "./signup.scss";
 
 export const SignUp = () => {
   const [cookies, setCookie, ] = useCookies()
-  const [token, setToken] = useRecoilState(tokenAtom)
+  const [iconToken, setIconToken ] = useRecoilState(iconAtom)
   const defaultValues = {
     name: '',
     email: '',
@@ -42,11 +42,11 @@ export const SignUp = () => {
           : setErrorMessage(`エラーが発生しました：${res.status}`)
     })
     .then(json => {
-      console.log(json.token)
       setCookie('token', json.token)
+      console.log(json.token)
       setCookie('email', data.email)
       setCookie('password', data.password)
-      setToken(json.token)
+      setIconToken(json.token)
     })
   }
 
@@ -66,7 +66,7 @@ export const SignUp = () => {
         label='お名前' 
         pattern={{}} 
         errors={errors.name} 
-        defaultValue={defaultValues}
+        defaultValue={defaultValues.name}
         disabled={false} />
 
         <InputItem 
@@ -79,7 +79,7 @@ export const SignUp = () => {
           message: 'メールアドレスの形式が不正です'
         }} 
         errors={errors.email}
-        defaultValue={defaultValues}
+        defaultValue={defaultValues.email}
         disabled={false} />
         
         <InputItem 
@@ -92,7 +92,7 @@ export const SignUp = () => {
           message: '半角英数字、6〜12文字で入力してください'
         }} 
         errors={errors.password}
-        defaultValue={defaultValues}
+        defaultValue={defaultValues.password}
         disabled={false} />
         <p><span className='text-gray text-s mt-3 inline-block'>※パスワードは半角英数字、6〜12文字で入力してください。</span></p>
 

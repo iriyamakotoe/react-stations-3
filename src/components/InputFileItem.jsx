@@ -1,17 +1,16 @@
-import React, { useEffect } from 'react'
-import { useRef } from 'react';
+import React, { useEffect,useRef } from 'react'
 import { useCookies } from 'react-cookie'
 import { useRecoilState } from 'recoil'
-import { tokenAtom } from "../store/atom";
+import { iconAtom } from "../store/atom";
 import Compressor from "compressorjs";
 
 export const InputFileItem = (props) => {
-  const [, setCookie, ] = useCookies()
+  const [cookies, setCookie, ] = useCookies()
   const inputFileRef = useRef(null);
-  const [token, ] = useRecoilState(tokenAtom)
-
+  const [iconToken, setIconToken ] = useRecoilState(iconAtom)
   useEffect(() => {
     const file = inputFileRef.current.files[0]
+    console.log(cookies.token)
     new Compressor(file, {
       quality: 0.8,
   
@@ -21,7 +20,7 @@ export const InputFileItem = (props) => {
         fetch('https://railway.bookreview.techtrain.dev/uploads', {
           method: 'POST',
           headers:{
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${iconToken}`
           },
           body: data
         })
@@ -39,11 +38,11 @@ export const InputFileItem = (props) => {
         console.log(err.message);
       },
     })
-  }, [token])
+  }, [iconToken])
 
   return (
     <>
-        <p className='mt-5'><label htmlFor="iconUrl">ユーザーアイコン：</label>
+        <p className='mt-10'><label htmlFor="iconUrl">ユーザーアイコン：</label>
         <input type="file" accept="image/png, image/jpg" ref={inputFileRef} /><br />
         <span className='text-gray text-s mt-3 inline-block'>※登録できる画像：拡張子 - jpg・png、サイズ - 1MB以内</span></p>
     </>

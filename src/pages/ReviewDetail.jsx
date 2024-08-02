@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { useRecoilState } from 'recoil'
-import { tokenAtom } from "../store/atom"
+import { iconAtom } from "../store/atom"
 import { useParams } from "react-router-dom";
 import { Header } from "../components/Header"
 import { InputFileItem } from "../components/InputFileItem"
@@ -11,13 +11,13 @@ import "./newreview.scss";
 
 export const ReviewDetail = () => {
   const [cookies, setCookie, ] = useCookies()
-  const [token, setToken] = useRecoilState(tokenAtom)
+  const [icon, setIcon] = useRecoilState(iconAtom)
   const urlParameters = useParams();
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm({ mode: "all" });
+    //   const {
+    //     register,
+    //     handleSubmit,
+    //     formState: { errors },
+    //   } = useForm({ mode: "all" });
 
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const ReviewDetail = () => {
     fetch('https://railway.bookreview.techtrain.dev/books/'+ urlParameters.id, {
         headers: {
             'Authorization': `Bearer ${cookies.token}`
-            }
+        }
     })
     //   .then(res => res.json())
     //   .then(json => setPosts(json.posts))
