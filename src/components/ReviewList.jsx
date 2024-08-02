@@ -12,15 +12,15 @@ export const ReviewList = () => {
 
   const fetchReview = () => {
     console.log(counter)
-    var request
+    let request
     if (cookies.token) {
-      request = new Request('https://railway.bookreview.techtrain.dev/public/books?offset=' + (counter*10), {
-      });
-    } else {
       request = new Request('https://railway.bookreview.techtrain.dev/books?offset=' + (counter*10), {
         headers: {
           'Authorization': `Bearer ${cookies.token}`
           }
+      });
+    } else {
+      request = new Request('https://railway.bookreview.techtrain.dev/public/books?offset=' + (counter*10), {
       });
     }
     fetch(request)

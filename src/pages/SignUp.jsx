@@ -5,23 +5,30 @@ import { useForm } from "react-hook-form"
 import { useRecoilState } from 'recoil'
 import { tokenAtom } from "../store/atom"
 import { Header } from "../components/Header"
+import { InputItem } from "../components/InputItem"
 import { InputFileItem } from "../components/InputFileItem"
 import "./signup.scss";
 
 export const SignUp = () => {
   const [cookies, setCookie, ] = useCookies()
   const [token, setToken] = useRecoilState(tokenAtom)
+  const defaultValues = {
+    name: '',
+    email: '',
+    password: ''
+}
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "all" });
+  } = useForm({ mode: "all",
+    defaultValues,
+   });
 
   const [errorMessage, setErrorMessage] = useState('')
 
-  const onSubmit = (inputData) => {
+  const onSubmit = (data) => {
     setErrorMessage('')
-    const data = { ...inputData, icon: {} }
     fetch('https://railway.bookreview.techtrain.dev/users', {
       method: 'POST',
       headers:{'Content-Type': 'application/json'},
@@ -35,6 +42,8 @@ export const SignUp = () => {
           : setErrorMessage(`エラーが発生しました：${res.status}`)
     })
     .then(json => {
+      console.log(json.token)
+      setCookie('token', json.token)
       setCookie('email', data.email)
       setCookie('password', data.password)
       setToken(json.token)
@@ -47,41 +56,49 @@ export const SignUp = () => {
     <>
     <Header />
     <main>
-      <h2 className='page-title'>新規ユーザー登録画面</h2>
+      <h2 className='page-title'>新規ユーザー登録</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
-        <p className='mb-10'><label htmlFor="name">お名前：</label>
-        <input type="text" 
-        {...register("name", {
-          required: 'お名前は必須です'
-        })} /><br />
-        <span className="error">{errors.name?.message}</span></p>
 
-        <p className='mb-10'><label htmlFor="email">メールアドレス：</label>
-        <input type="email" 
-        {...register("email", { 
-          required: 'メールアドレスは必須です',
-          pattern: {
-            value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i,
-            message: 'メールアドレスの形式が不正です'
-          }
-        })} /><br />
-        <span className="error">{errors.email?.message}</span></p>
+      <InputItem 
+        register={register} 
+        type='text' 
+        id='name' 
+        label='お名前' 
+        pattern={{}} 
+        errors={errors.name} 
+        defaultValue={defaultValues}
+        disabled={false} />
 
-        <p className='mb-10'><label htmlFor="password">パスワード：</label>
-        <input type="password" 
-        {...register("password", {
-          required: 'パスワードは必須です',
-          pattern: {
-            value: /^[a-zA-Z0-9]{6,12}$/i,
-            message: '半角英数字、6〜12文字で入力してください'
-          }
-        })} /><br />
-        <span className='text-gray text-s mt-3 inline-block'>※パスワードは半角英数字、6〜12文字で入力してください。</span><br />
-        <span className="error">{errors.password?.message}</span></p>
+        <InputItem 
+        register={register} 
+        type='email' 
+        id='email' 
+        label='メールアドレス' 
+        pattern={{
+          value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i,
+          message: 'メールアドレスの形式が不正です'
+        }} 
+        errors={errors.email}
+        defaultValue={defaultValues}
+        disabled={false} />
+        
+        <InputItem 
+        register={register} 
+        type='password' 
+        id='password' 
+        label='パスワード' 
+        pattern={{
+          value: /^[a-zA-Z0-9]{6,12}$/i,
+          message: '半角英数字、6〜12文字で入力してください'
+        }} 
+        errors={errors.password}
+        defaultValue={defaultValues}
+        disabled={false} />
+        <p><span className='text-gray text-s mt-3 inline-block'>※パスワードは半角英数字、6〜12文字で入力してください。</span></p>
 
-        <InputFileItem />
+        <InputFileItem errorMessage={errorMessage} setErrorMessage={setErrorMessage} />
 
-        <p className='flex justify-center mt-10'><button type="submit">送信</button></p>
+        <p className='flex justify-center mt-10'><button type="submit">登録</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
       </form>
       </main>

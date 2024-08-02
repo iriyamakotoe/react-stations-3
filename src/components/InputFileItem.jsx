@@ -32,7 +32,6 @@ export const InputFileItem = (props) => {
         })
         .then(json => {
           setCookie('iconUrl', json.iconUrl)
-          setCookie('token', token)
           console.log('画像登録成功')
         })
       },
@@ -44,7 +43,7 @@ export const InputFileItem = (props) => {
 
   return (
     <>
-        <p><label htmlFor="iconUrl">ユーザーアイコン：</label>
+        <p className='mt-5'><label htmlFor="iconUrl">ユーザーアイコン：</label>
         <input type="file" accept="image/png, image/jpg" ref={inputFileRef} /><br />
         <span className='text-gray text-s mt-3 inline-block'>※登録できる画像：拡張子 - jpg・png、サイズ - 1MB以内</span></p>
     </>

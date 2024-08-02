@@ -32,11 +32,13 @@ export const Home = () => {
       <h2 className="page-title">レビュー一覧</h2>
       <ReviewList />
       <Pagenation />
+
       {cookies.token ? (
         <p className='text-center'><Link to="/new" className='inline-block bg-orange text-white p-5 rounded'>レビュー作成</Link></p>
       ) : (
         <p className='text-center'><Link to="/login" className='inline-block bg-orange text-white p-5 rounded'>ログインしてレビュー作成</Link></p>
       )} 
+      
       </main>
     </>
   );

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { useRecoilState } from 'recoil'
 import { tokenAtom } from "../store/atom"
 import { Header } from "../components/Header";
+import { InputItem } from "../components/InputItem"
 import { InputFileItem } from "../components/InputFileItem"
 import "./profile.scss";
 
@@ -57,38 +58,41 @@ export const Profile = () => {
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <p id="icon" className='mb-10 text-center'><img src={cookies.iconUrl} alt="ユーザーアイコン" /></p>
 
-        <p className='mb-10'><label htmlFor="name">お名前：</label>
-        <input type="text" 
-        {...register("name", {
-          required: 'お名前は必須です'
-        })} defaultValue={defaultValues?.name} /><br />
-        <span className="error">{errors.name?.message}</span></p>
+        <InputItem 
+        register={register} 
+        type='text' 
+        id='name' 
+        label='お名前' 
+        pattern={{}} 
+        errors={errors.name} 
+        defaultValues={defaultValues.name}
+        disabled={false} />
 
-        <p className='mb-10'><label htmlFor="email">メールアドレス：</label>
-        <input type="email" 
-        {...register("email", { 
-          required: 'メールアドレスは必須です',
-          pattern: {
-            value: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/i,
-            message: 'メールアドレスの形式が不正です'
-          }
-        })} defaultValue={defaultValues?.email} disabled /><span className='text-gray text-s mt-3 inline-block'>&nbsp;※変更不可</span><br />
-        <span className="error">{errors.email?.message}</span></p>
-
-        <p className='mb-10'><label htmlFor="password">パスワード：</label>
-        <input type="password" 
-        {...register("password", {
-          required: 'パスワードは必須です',
-          pattern: {
-            value: /^[a-zA-Z0-9]{6,12}$/i,
-            message: '半角英数字、6〜12文字で入力してください'
-          }
-        })} defaultValue={defaultValues?.password} disabled /><span className='text-gray text-s mt-3 inline-block'>&nbsp;※変更不可</span><br />
-        <span className="error">{errors.password?.message}</span></p>
+        <InputItem 
+        register={register} 
+        type='email' 
+        id='email' 
+        label='メールアドレス' 
+        pattern={{}} 
+        errors={errors.email}
+        defaultValues={defaultValues.email}
+        disabled={true} />
+        <p><span className='text-gray text-s mt-3 inline-block'>※変更不可</span></p>
+        
+        <InputItem 
+        register={register} 
+        type='password' 
+        id='password' 
+        label='パスワード' 
+        pattern={{}} 
+        errors={errors.password}
+        defaultValues={defaultValues.password}
+        disabled={true} />
+        <p><span className='text-gray text-s mt-3 inline-block'>※変更不可</span></p>
 
         <InputFileItem errorMessage={errorMessage} setErrorMessage={setErrorMessage} />
         
-        <p className='flex justify-center mt-10'><button type="submit">送信</button></p>
+        <p className='flex justify-center mt-10'><button type="submit">登録</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
         {/* <p className="text-gray mt-5 text-center">{successMessage}</p> */}
       </form>

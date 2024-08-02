@@ -9,7 +9,7 @@ import { Header } from "../components/Header"
 import { InputFileItem } from "../components/InputFileItem"
 import "./newreview.scss";
 
-export const DetailReview = () => {
+export const ReviewDetail = () => {
   const [cookies, setCookie, ] = useCookies()
   const [token, setToken] = useRecoilState(tokenAtom)
   const urlParameters = useParams();
@@ -47,4 +47,4 @@ export const DetailReview = () => {
   );
 };
 
-export default DetailReview;
+export default ReviewDetail;
