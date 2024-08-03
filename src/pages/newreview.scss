@@ -1,3 +1,6 @@
 @use "../variables" as var;
 @use "../mixins" as mx;
 
+.success span {
+    padding: 10px 30px;
+}

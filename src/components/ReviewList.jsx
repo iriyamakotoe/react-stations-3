@@ -6,10 +6,14 @@ import { reviewAtom, counterAtom } from "../store/atom";
 import "./reviewlist.scss";
 
 export const ReviewList = () => {
-  const [cookies, setCookie, ] = useCookies()
+  const [cookies, , ] = useCookies()
   const [review, setReview] = useRecoilState(reviewAtom)
   const [counter, ] = useRecoilState(counterAtom)
 
+  useEffect(() => {
+    fetchReview()
+  }, [counter])
+  
   const fetchReview = () => {
     console.log(counter)
     let request
@@ -29,14 +33,28 @@ export const ReviewList = () => {
       setReview(json)
     })
   }
-  useEffect(() => {
-    fetchReview()
-  }, [counter])
+
+  const handleClick = (selectBookId) => {
+    fetch('https://railway.bookreview.techtrain.dev/logs', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${cookies.token}`
+      },
+      body: JSON.stringify({'selectBookId': selectBookId})
+    })
+    .then((res) => {
+      console.log(res)
+      if (res.ok) return console.log(`ログ送信成功`)
+      else
+      console.log(`ログ送信失敗：${res.status}`)
+    })
+  }
 
   return (
     <>
       <ul className="review-list">
-      {review.map((obj) => <li key={obj.id} className=''><Link to={'/books/' + obj.id}>{obj.title}</Link></li>)}
+      {review.map((obj) => <li key={obj.id} className=''><Link to={'/detail/' + obj.id} onClick={(e) => handleClick(obj.id)}>{obj.title}</Link></li>)}
       </ul>
     </>
   );

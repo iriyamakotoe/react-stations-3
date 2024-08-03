@@ -47,3 +47,10 @@ button:disabled {
 .error {
     color: var.$red;
 }
+main {
+    position: relative;
+}
+.loading {
+    opacity: 0;
+    transition: all 3s ease-out;;
+}

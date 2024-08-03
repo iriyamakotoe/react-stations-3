@@ -6,7 +6,8 @@ import { SignUp } from "../pages/SignUp";
 import { Login } from "../pages/Login";
 import { Profile } from "../pages/Profile";
 import { NewReview } from "../pages/NewReview";
-import { ReviewDetail } from "../pages/ReviewDetail"
+import { DetailReview } from "../pages/DetailReview"
+import { EditReview } from "../pages/EditReview"
 
 export const Router = () => {
   const [cookies, , ] = useCookies()
@@ -18,7 +19,8 @@ export const Router = () => {
         <Route exact path={`/login`} element={<Login />} />
         <Route exact path={`/profile`} element={cookies.token ? <Profile /> : <Navigate replace to="/login" />} />
         <Route exact path={`/new`} element={cookies.token ? <NewReview /> : <Navigate replace to="/login" />} />
-        <Route exact path={`/books/:id`} element={<ReviewDetail />} />
+        <Route exact path={`/detail/:id`} element={<DetailReview />} />
+        <Route exact path={`/edit/:id`} element={<EditReview />} />
       </Routes>
     </BrowserRouter>
   );

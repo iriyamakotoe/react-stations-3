@@ -5,7 +5,7 @@ import { Header } from "../components/Header"
 import "./newreview.scss";
 
 export const NewReview = () => {
-  const [cookies, setCookie, ] = useCookies()
+  const [cookies, , ] = useCookies()
   const {
     register,
     handleSubmit,
@@ -13,10 +13,10 @@ export const NewReview = () => {
   } = useForm({ mode: "all" });
 
   const [errorMessage, setErrorMessage] = useState('')
+  const [isVisible, setIsVisible] = useState(false)
 
-  const onSubmit = (inputData) => {
+  const onSubmit = (data) => {
     setErrorMessage('')
-    const data = { ...inputData }
     fetch('https://railway.bookreview.techtrain.dev/books', {
       method: 'POST',
       headers:{
@@ -26,12 +26,10 @@ export const NewReview = () => {
       body: JSON.stringify(data)
     })
     .then(res => {
-      if (res.ok) return res.json()
-        else
+      if (res.ok) 
+        return setIsVisible(true)
+      else
         setErrorMessage(`エラーが発生しました：${res.status}`)
-    })
-    .then(json => {
-        console.log('成功しました',json)
     })
   }
 
@@ -40,6 +38,9 @@ export const NewReview = () => {
     <Header />
     <main>
       <h2 className='page-title'>書籍レビュー登録</h2>
+
+      {isVisible && (<p className='success bg-orange-50 text-orange-600 mb-10 p-3'>登録しました！</p>)}
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <p className='mb-10'><label htmlFor="title">書籍タイトル：</label>
         <input type="text" 
@@ -50,7 +51,9 @@ export const NewReview = () => {
 
         <p className='mb-10'><label htmlFor="url">URL：</label>
         <input type="text" 
-        {...register("url")} /><br />
+        {...register("url", {
+          required: '必須です'
+        })} /><br />
         <span className="error">{errors.url?.message}</span></p>
 
         <p className='mb-10'><label htmlFor="detail">内容：</label>

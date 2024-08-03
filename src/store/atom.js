@@ -15,7 +15,7 @@ export const iconAtom = atom({
     default: null
 })
 
-export const profileSuccessMessageAtom = atom({
-    key: 'profileSuccessMessageAtom',
-    default: ''
+export const profileAtom = atom({
+    key: 'profileAtom',
+    default: {}
 })

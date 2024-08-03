@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { Header } from "../components/Header";
 import "./login.scss";
 
 export const Login = () => {
-  const navigate = useNavigate()
   const [cookies, setCookie, ] = useCookies()
   const {
     register,
@@ -30,10 +29,7 @@ export const Login = () => {
         : setErrorMessage(`エラーが発生しました：${res.status}`)
     })
     .then(json => {
-      setCookie('email', data.email)
-      setCookie('password', data.password)
       setCookie('token', json.token)
-      navigate('/')
     })
   }
 
