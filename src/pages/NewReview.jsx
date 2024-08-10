@@ -13,7 +13,7 @@ export const NewReview = () => {
   } = useForm({ mode: "all" });
 
   const [errorMessage, setErrorMessage] = useState('')
-  const [isVisible, setIsVisible] = useState(false)
+  const [successMessage, setSuccessMessage] = useState(false)
 
   const onSubmit = (data) => {
     setErrorMessage('')
@@ -27,7 +27,7 @@ export const NewReview = () => {
     })
     .then(res => {
       if (res.ok) 
-        return setIsVisible(true)
+        setSuccessMessage(true)
       else
         setErrorMessage(`エラーが発生しました：${res.status}`)
     })
@@ -38,9 +38,6 @@ export const NewReview = () => {
     <Header />
     <main>
       <h2 className='page-title'>書籍レビュー登録</h2>
-
-      {isVisible && (<p className='success bg-orange-50 text-orange-600 mb-10 p-3'>登録しました！</p>)}
-
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <p className='mb-10'><label htmlFor="title">書籍タイトル：</label>
         <input type="text" 
@@ -57,7 +54,7 @@ export const NewReview = () => {
         <span className="error">{errors.url?.message}</span></p>
 
         <p className='mb-10'><label htmlFor="detail">内容：</label>
-        <input type="detail" 
+        <textarea rows="5" cols="33"
         {...register("detail", {
           required: '必須です'
         })} /><br />
@@ -72,6 +69,8 @@ export const NewReview = () => {
 
         <p className='flex justify-center mt-10'><button type="submit">送信</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
+
+        {successMessage && (<p className='success bg-orange-50 text-orange-600 mb-10 p-3'>登録しました！</p>)}
       </form>
       </main>
     </>

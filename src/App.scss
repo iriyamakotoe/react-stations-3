@@ -31,10 +31,12 @@ h2.page-title {
     font-weight: bold;
 }
 input:not([type="file"]),
-button {
+button,
+textarea {
     border: 1px solid var.$gray-light;
     padding: 5px !important;
     border-radius: 3px;
+    vertical-align: middle;
 }
 button {
     background-color: var.$gray !important;

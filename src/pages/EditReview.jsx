@@ -30,7 +30,7 @@ export const EditReview = () => {
   useEffect(() => {
     fetchBooks()
   },[])
-
+  
 
   const defaultValues = {
     title: bookData.title,
@@ -42,44 +42,45 @@ export const EditReview = () => {
   const {
     register,
     handleSubmit,
-    formState: { isDirty, isValid, errors  },
-    } = useForm({ mode: "onBlur",
+    formState: { isDirty, isValid, errors },
+    } = useForm({ mode: "all",
     defaultValues,
-});
-
-const [errorMessage, setErrorMessage] = useState('')
-
-const onSubmit = (data) => {
-  setErrorMessage('')
-  fetch('https://railway.bookreview.techtrain.dev/books/'+ urlParameters.id, {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cookies.token}`
-    },
-    body: JSON.stringify(data)
-  })
-  .then(res => {
-    if (res.ok) {
-      return res.json()
-    } else {
-      setErrorMessage(`エラーが発生しました：${res.status}`)
-    }
-  })
-  .then(json => {
-    console.log(json)
-    setBookData(json)
-  })
-  .catch(() => {
-    console.log('error')
   });
-}
+
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const onSubmit = (data) => {
+    console.log(data)
+    setErrorMessage('')
+    fetch('https://railway.bookreview.techtrain.dev/books/'+ urlParameters.id, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cookies.token}`
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if (res.ok) {
+        return res.json()
+      } else {
+        setErrorMessage(`エラーが発生しました：${res.status}`)
+      }
+    })
+    .then(json => {
+      console.log(json)
+      setBookData(json)
+    })
+    .catch(() => {
+      console.log('error')
+    });
+  }
 
   return (
     <>
     <Header />
     <main>
-      <h2 className='page-title'>書籍タイトル：{bookData.title}編集</h2>
+      <h2 className='page-title'>書籍レビュー編集</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <InputItem 

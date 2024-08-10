@@ -4,7 +4,6 @@ import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
-import { InputFileItem } from "../components/InputFileItem"
 import { UploadFile } from "../uploadfile.jsx"
 import "./signup.scss";
 

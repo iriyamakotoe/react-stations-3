@@ -53,9 +53,15 @@ export const ReviewList = () => {
 
   return (
     <>
-      <ul className="review-list">
-      {review.map((obj) => <li key={obj.id} className=''><Link to={'/detail/' + obj.id} onClick={(e) => handleClick(obj.id)}>{obj.title}</Link></li>)}
-      </ul>
+      {cookies.token ? (
+        <ul className="review-list">
+        {review.map((obj) => <li key={obj.id} className=''><Link to={'/detail/' + obj.id} onClick={(e) => handleClick(obj.id)}>{obj.title}</Link></li>)}
+        </ul>
+      ) : (
+        <ul className="review-list">
+        {review.map((obj) => <li key={obj.id} className=''>{obj.title}</li>)}
+        </ul>
+      )}
     </>
   );
 };

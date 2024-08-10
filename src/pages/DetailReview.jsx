@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie'
 import { useParams } from "react-router-dom";
 import { Header } from "../components/Header"
 import { DleteReviewButton } from "../components/DleteReviewButton"
-import { fetchBooks } from "../fetchBooks.jsx"
+// import { fetchBooks } from "../fetchBooks.jsx"
 
 export const DetailReview = () => {
   const [cookies, , ] = useCookies()

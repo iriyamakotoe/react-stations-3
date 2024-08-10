@@ -6,6 +6,7 @@ import { profileAtom } from "../store/atom"
 import { Header } from "../components/Header";
 import { InputItem } from "../components/InputItem"
 import { UploadFile } from "../uploadfile.jsx"
+import iconUser from "../assets/icon_user.png"
 import "./profile.scss";
 
 export const Profile = () => {
@@ -24,9 +25,13 @@ export const Profile = () => {
   });
 
   const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState(false)
+
+
 
   const onSubmit = (data) => {
     setErrorMessage('')
+
     fetch('https://railway.bookreview.techtrain.dev/users', {
       method: 'PUT',
       headers:{
@@ -37,27 +42,34 @@ export const Profile = () => {
     })
     .then(res => {
       if (res.ok) {
+        setSuccessMessage(true)
         return res.json()
       } else {
         setErrorMessage(`エラーが発生しました：${res.status}`)
       }
     })
     .then(json => {
-      setProfile({
-        'name': json.name,
-        'iconUrl': UploadFile(inputFileRef.current.files[0], cookies.token)
-      })
+      const icon = UploadFile(inputFileRef.current.files[0], cookies.token,profile)
+      console.log(UploadFile(inputFileRef.current.files[0], cookies.token))
+      setTimeout(() => {
+        console.log(icon)
+        setProfile({
+          'name': json.name,
+          'iconUrl': icon
+        })
+      }, 5000)
     })
   }
+
   return (
     <>
     <Header />
     <main>
       <h2 className='page-title'>ユーザー情報編集</h2>
-      {/* {isVisible && (<p className='success bg-orange-50 text-orange-600 mb-10 p-3'>更新しました！</p>)} */}
+
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <div className='flex items-center justify-center mb-10'>
-          <p id="icon" className='mr-10'><img src={profile.iconUrl} alt="ユーザーアイコン" /></p>
+          <p id="icon" className='mr-5'><img src={profile.iconUrl ? profile.iconUrl : iconUser} alt="ユーザーアイコン" /></p>
           <p>{profile.name}</p>  
         </div>
 
@@ -77,7 +89,8 @@ export const Profile = () => {
         
         <p className='flex justify-center mt-10'><button type="submit">更新</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
-        {/* <p className="text-gray mt-5 text-center">{successMessage}</p> */}
+
+        {successMessage && (<p className='success bg-orange-50 text-orange-600 mb-10 p-3'>更新しました！</p>)}
       </form>
       </main>
     </>
