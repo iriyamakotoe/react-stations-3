@@ -2,7 +2,7 @@ import { atom } from 'recoil'
 
 export const counterAtom = atom({
     key: 'counterAtom',
-    default: 0
+    default: null
 })
 
 export const reviewAtom = atom({
@@ -10,8 +10,8 @@ export const reviewAtom = atom({
     default: []
 })
 
-export const iconAtom = atom({
-    key: 'iconAtom',
+export const isLoadingAtom = atom({
+    key: 'isLoadingAtom',
     default: null
 })
 

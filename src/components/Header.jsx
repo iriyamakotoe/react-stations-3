@@ -20,6 +20,7 @@ export const Header = () => {
     .then(res => res.json())
     .then(json => {
       setProfile(json)
+      // console.log(profile)
     })
   }
   useEffect(() => {

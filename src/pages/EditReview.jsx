@@ -1,56 +1,38 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { useParams } from "react-router-dom";
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
 import { DleteReviewButton } from "../components/DleteReviewButton"
+import { useFetchBook } from "../components/useFetchBook"
 
 export const EditReview = () => {
   const [cookies, , ] = useCookies()
-  const [bookData, setBookData] = useState({});
   const urlParameters = useParams();
-
-  const fetchBooks = () => {
-    fetch('https://railway.bookreview.techtrain.dev/books/'+ urlParameters.id, {
-      headers: {
-        'Authorization': `Bearer ${cookies.token}`
-      }
-    })
-    .then(res => res.json())
-    .then(json => {
-      console.log(json)
-      setBookData(json)
-    })
-    .catch(() => {
-      console.log('error')
-    });
-  }
-
-  useEffect(() => {
-    fetchBooks()
-  },[])
+  const [bookData, setBookData, isLoading] = useFetchBook(urlParameters);
   
-
   const defaultValues = {
     title: bookData.title,
     url: bookData.url,
     detail: bookData.detail,
     review: bookData.review
   }
-
+  const values = {...defaultValues}
   const {
     register,
     handleSubmit,
-    formState: { isDirty, isValid, errors },
+    formState: { errors },
     } = useForm({ mode: "all",
     defaultValues,
+    values,
   });
 
   const [errorMessage, setErrorMessage] = useState('')
+  const [successMessage, setSuccessMessage] = useState(false)
 
   const onSubmit = (data) => {
-    console.log(data)
+    console.log(data,urlParameters.id,cookies.token)
     setErrorMessage('')
     fetch('https://railway.bookreview.techtrain.dev/books/'+ urlParameters.id, {
       method: 'PUT',
@@ -70,10 +52,22 @@ export const EditReview = () => {
     .then(json => {
       console.log(json)
       setBookData(json)
+      setSuccessMessage(true)
     })
     .catch(() => {
       console.log('error')
     });
+  }
+
+  if(isLoading) {
+    return (
+      <>
+      <Header />
+      <main>
+      <p className='text-center'>Loading...</p>
+      </main>
+      </>
+    )
   }
 
   return (
@@ -90,8 +84,7 @@ export const EditReview = () => {
         label='書籍タイトル' 
         pattern={{}} 
         errors={errors.title} 
-        defaultValues={defaultValues.title}
-        disabled={false} />
+        defaultValues={defaultValues.title} />
 
         <InputItem 
         register={register} 
@@ -103,18 +96,16 @@ export const EditReview = () => {
           message: 'URLの形式が不正です'
         }} 
         errors={errors.url} 
-        defaultValues={defaultValues.url}
-        disabled={false} />
+        defaultValues={defaultValues.url} />
 
         <InputItem 
         register={register} 
         type='text' 
         id='detail' 
-        label='書籍詳細' 
+        label='概要' 
         pattern={{}} 
         errors={errors.detail} 
-        defaultValues={defaultValues.detail}
-        disabled={false} />
+        defaultValues={defaultValues.detail} />
 
         <InputItem 
         register={register} 
@@ -123,15 +114,13 @@ export const EditReview = () => {
         label='レビュー' 
         pattern={{}} 
         errors={errors.review} 
-        defaultValues={defaultValues.review}
-        disabled={false} />
+        defaultValues={defaultValues.review} />
         
-        <p className='flex justify-center mt-10'><button type="submit">更新</button></p>
+        <p className='flex justify-center mt-10'><button type="submit">更新</button><DleteReviewButton bookData={bookData} /></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
-        {/* <p className="text-gray mt-5 text-center">{successMessage}</p> */}
       </form>
-
-      <DleteReviewButton bookData={bookData} />
+ 
+      {successMessage && (<p className='success bg-orange-50 text-orange-600 mb-10 p-3'>更新しました！</p>)}
     </main>
     </>
   );

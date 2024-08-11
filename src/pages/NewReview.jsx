@@ -42,7 +42,7 @@ export const NewReview = () => {
         <p className='mb-10'><label htmlFor="title">書籍タイトル：</label>
         <input type="text" 
         {...register("title", {
-          required: '書籍タイトルは必須です'
+          required: '必須です'
         })} /><br />
         <span className="error">{errors.title?.message}</span></p>
 
@@ -60,8 +60,8 @@ export const NewReview = () => {
         })} /><br />
         <span className="error">{errors.detail?.message}</span></p>
 
-        <p className='mb-10'><label htmlFor="review">レビュワー：</label>
-        <input type="text" 
+        <p className='mb-10'><label htmlFor="review">レビュー：</label>
+        <textarea rows="5" cols="33"
         {...register("review", {
           required: '必須です'
         })} /><br />
