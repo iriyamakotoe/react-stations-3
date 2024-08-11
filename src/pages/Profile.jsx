@@ -50,13 +50,11 @@ export const Profile = () => {
       }
     })
     .then(json => {
-      setTimeout(() => {
-        setProfile({
-          'name': json.name,
-          // 'iconUrl': icon
-        })
-        setSuccessMessage(true)
-      }, 5000)
+      setProfile({
+        'name': json.name,
+        // 'iconUrl': icon
+      })
+      setSuccessMessage(true)
     })
   }
 
