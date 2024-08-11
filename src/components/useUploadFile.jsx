@@ -1,9 +1,15 @@
+import { useState, useEffect } from 'react'
+import { useCookies } from 'react-cookie'
 import Compressor from "compressorjs";
-import { useRecoilState } from 'recoil'
-import { profileAtom } from "../store/atom"
 
-export default const useUploadFile = (file, token) => {
-    const [profile, setProfile ] = useRecoilState(profileAtom)
+export const useUploadFile = (file) => {
+    const [cookies, , ] = useCookies()
+    const [icon, setIcon ] = useState('')
+
+    useEffect(() => {
+        console.log(icon)
+    },[icon])
+
     new Compressor(file, {
         quality: 0.8,
 
@@ -13,21 +19,24 @@ export default const useUploadFile = (file, token) => {
             fetch('https://railway.bookreview.techtrain.dev/uploads', {
             method: 'POST',
             headers:{
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${cookies.token}`
             },
             body: data
             })
             .then(res => {
             if (res.ok) return res.json()
-                else
-            props.setErrorMessage(`画像登録エラーが発生しました：${res.status}`)
             })
             .then(json => {
-                return json.iconUrl
+                console.log(json.iconUrl)
+                setIcon(json.iconUrl)
             })
         },
         error(err) {
             console.log(err.message);
         }
     })
+
+    return [icon, setIcon]
 }
+
+export default useUploadFile;

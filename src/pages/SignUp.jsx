@@ -63,8 +63,7 @@ export const SignUp = () => {
         label='お名前' 
         pattern={{}} 
         errors={errors.name} 
-        defaultValue={defaultValues.name}
-        disabled={false} />
+        defaultValue={defaultValues.name} />
 
         <InputItem 
         register={register} 
@@ -76,8 +75,7 @@ export const SignUp = () => {
           message: 'メールアドレスの形式が不正です'
         }} 
         errors={errors.email}
-        defaultValue={defaultValues.email}
-        disabled={false} />
+        defaultValue={defaultValues.email} />
         
         <InputItem 
         register={register} 
@@ -89,8 +87,7 @@ export const SignUp = () => {
           message: '半角英数字、6〜12文字で入力してください'
         }} 
         errors={errors.password}
-        defaultValue={defaultValues.password}
-        disabled={false} />
+        defaultValue={defaultValues.password} />
         <p><span className='text-gray text-s mt-3 inline-block'>※パスワードは半角英数字、6〜12文字で入力してください。</span></p>
 
         <p className='mt-10'><label htmlFor="iconUrl">ユーザーアイコン：</label>

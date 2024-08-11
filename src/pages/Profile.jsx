@@ -3,34 +3,36 @@ import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { useRecoilState } from 'recoil'
 import { profileAtom } from "../store/atom"
+import { UploadFile } from "../uploadfile.jsx"
 import { Header } from "../components/Header";
 import { InputItem } from "../components/InputItem"
-import { UploadFile } from "../uploadfile.jsx"
 import iconUser from "../assets/icon_user.png"
 import "./profile.scss";
 
 export const Profile = () => {
   const [cookies, , ] = useCookies()
+  const inputFileRef = useRef(null)
   const [profile, setProfile ] = useRecoilState(profileAtom)
-  const inputFileRef = useRef(null);
   const defaultValues = {
-      name: profile.name,
+    name: profile.name,
+    iconUrl: profile.iconUrl
   }
+  const values = {...defaultValues}
   const {
       register,
       handleSubmit,
       formState: { errors },
       } = useForm({ mode: "all",
       defaultValues,
+      values,
   });
 
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState(false)
 
-
-
   const onSubmit = (data) => {
     setErrorMessage('')
+    UploadFile(inputFileRef.current.files[0], cookies.token,profile)
 
     fetch('https://railway.bookreview.techtrain.dev/users', {
       method: 'PUT',
@@ -42,21 +44,18 @@ export const Profile = () => {
     })
     .then(res => {
       if (res.ok) {
-        setSuccessMessage(true)
         return res.json()
       } else {
         setErrorMessage(`エラーが発生しました：${res.status}`)
       }
     })
     .then(json => {
-      const icon = UploadFile(inputFileRef.current.files[0], cookies.token,profile)
-      console.log(UploadFile(inputFileRef.current.files[0], cookies.token))
       setTimeout(() => {
-        console.log(icon)
         setProfile({
           'name': json.name,
-          'iconUrl': icon
+          // 'iconUrl': icon
         })
+        setSuccessMessage(true)
       }, 5000)
     })
   }
@@ -80,8 +79,7 @@ export const Profile = () => {
         label='お名前' 
         pattern={{}} 
         errors={errors.name} 
-        defaultValues={defaultValues.name}
-        disabled={false} />
+        defaultValues={defaultValues.name} />
 
         <p className='mt-10'><label htmlFor="iconUrl">ユーザーアイコン：</label>
         <input type="file" accept="image/png, image/jpg" ref={inputFileRef} /><br />
