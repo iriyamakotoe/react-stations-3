@@ -76,15 +76,14 @@ export const EditReview = () => {
     )
   }
 
-  if (!bookData.isMine) return <Navigate to="/" />
-
   return (
     <>
     <Helmet>
-    <title>編集画面：{bookData.title}</title>
-    <meta name="description" content={bookData.title+'のレビュー編集'} />
+      <title>編集画面：{bookData.title}</title>
+      <meta name="description" content={bookData.title+'のレビュー編集'} />
     </Helmet>
     <Header />
+    {bookData.isMine ? (
     <main>
       <h2 className='page-title'>書籍レビュー編集</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
@@ -133,6 +132,9 @@ export const EditReview = () => {
 
       {successMessage && (<p className='success bg-orange-50 text-orange-600 mb-10 p-3'>更新しました！</p>)}
     </main>
+    ) : (
+      <Navigate to="/" />
+    )} 
     </>
   );
 };
