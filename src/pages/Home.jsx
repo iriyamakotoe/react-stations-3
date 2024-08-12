@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 import { Header } from "../components/Header";
-import { ReviewList } from "../components/ReviewList";
-import { Pagenation } from "../components/Pagenation";
+import { ReviewList } from "../components/ReviewList"
+import { Pagenation } from "../components/Pagenation"
 import { NewReviewButton } from "../components/NewReviewButton";
 import "./home.scss";
 

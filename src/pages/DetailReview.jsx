@@ -1,48 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { useParams } from "react-router-dom";
-import { Header } from "../components/Header";
-import { DleteReviewButton } from "../components/DleteReviewButton";
-import { useFetchBook } from "../components/useFetchBook";
+import { Header } from "../components/Header"
+import { DleteReviewButton } from "../components/DleteReviewButton"
+import { useFetchBook } from "../components/useFetchBook"
 
 export const DetailReview = () => {
-  const urlParameters = useParams();
-  const [bookData, , isLoading] = useFetchBook(urlParameters);
+  const urlParameters = useParams()
+  const [bookData, , isLoading] = useFetchBook(urlParameters)
 
-  if (isLoading) {
+  if(isLoading) {
     return (
       <>
-        <Header />
-        <main>
-          <p className="text-center">Loading...</p>
-        </main>
+      <Header />
+      <main>
+      <p className='text-center'>Loading...</p>
+      </main>
       </>
-    );
+    )
   }
 
   return (
     <>
-      <Header />
-      <main>
-        <h2 className="page-title">書籍タイトル：{bookData.title}</h2>
-        <p>URL:{bookData.url}</p>
-        <p>{bookData.detail}</p>
-        <p>レビュー：{bookData.review}</p>
-        <p>レビュワー：{bookData.reviewer}</p>
-
-        {bookData.isMine && (
-          <div className="flex items-center mt-10 justify-center">
-            <p>
-              <Link to={"/edit/" + bookData.id} className="btn">
-                編集
-              </Link>
-            </p>
-            <p>
-              <DleteReviewButton bookData={bookData} />
-            </p>
-          </div>
-        )}
-      </main>
+    <Header />
+    <main>
+      <h2 className='page-title'>書籍タイトル：{bookData.title}</h2>
+      <p>URL:{bookData.url}</p>
+      <p>{bookData.detail}</p>
+      <p>レビュー：{bookData.review}</p>
+      <p>レビュワー：{bookData.reviewer}</p>
+      
+      {bookData.isMine && 
+        <div className='flex items-center mt-10 justify-center'>
+        <p><Link to={'/edit/'+ bookData.id} className='btn'>編集</Link></p>
+        <p><DleteReviewButton bookData={bookData} /></p>
+        </div>
+      }
+    </main>
     </>
   );
 };
