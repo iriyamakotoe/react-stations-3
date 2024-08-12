@@ -55,6 +55,9 @@ export const Profile = () => {
         // 'iconUrl': icon
       })
       setSuccessMessage(true)
+      setTimeout(() => {
+        setSuccessMessage(false)
+      }, "3000")
     })
   }
 
@@ -65,6 +68,7 @@ export const Profile = () => {
       <h2 className='page-title'>ユーザー情報編集</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
+        
         <div className='flex items-center justify-center mb-10'>
           <p id="icon" className='mr-5'><img src={profile.iconUrl ? profile.iconUrl : iconUser} alt="ユーザーアイコン" /></p>
           <p>{profile.name}</p>  

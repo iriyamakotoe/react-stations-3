@@ -31,8 +31,8 @@ export const DetailReview = () => {
       <p>レビュワー：{bookData.reviewer}</p>
       
       {bookData.isMine && 
-        <div className='flex items-center'>
-        <p><Link to={'/edit/'+ bookData.id}>編集</Link></p>
+        <div className='flex items-center mt-10 justify-center'>
+        <p><Link to={'/edit/'+ bookData.id} className='btn'>編集</Link></p>
         <p><DleteReviewButton bookData={bookData} /></p>
         </div>
       }

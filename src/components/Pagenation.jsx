@@ -8,7 +8,7 @@ export const Pagenation = () => {
   const [counter, setCounter] = useRecoilState(counterAtom)
 
   useEffect(() => {
-    if(counter == 0) {
+    if(counter == null) {
         prevBtnRef.current.disabled = true;
     }
   }, [])

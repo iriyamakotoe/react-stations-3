@@ -2,10 +2,19 @@ import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { Header } from "../components/Header"
+import { InputItem } from "../components/InputItem"
+import { TextAreaItem } from "../components/TextAreaItem"
 import "./newreview.scss";
 
 export const NewReview = () => {
   const [cookies, , ] = useCookies()
+
+  const defaultValues = {
+    title: '',
+    url: '',
+    detail: '',
+    review: ''
+  }
   const {
     register,
     handleSubmit,
@@ -26,10 +35,14 @@ export const NewReview = () => {
       body: JSON.stringify(data)
     })
     .then(res => {
-      if (res.ok) 
+      if (res.ok) {
         setSuccessMessage(true)
-      else
+        setTimeout(() => {
+          setSuccessMessage(false)
+        }, "3000")
+      } else {
         setErrorMessage(`エラーが発生しました：${res.status}`)
+      }
     })
   }
 
@@ -39,33 +52,44 @@ export const NewReview = () => {
     <main>
       <h2 className='page-title'>書籍レビュー登録</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
-        <p className='mb-10'><label htmlFor="title">書籍タイトル：</label>
-        <input type="text" 
-        {...register("title", {
-          required: '必須です'
-        })} /><br />
-        <span className="error">{errors.title?.message}</span></p>
+        <InputItem 
+        register={register} 
+        type='text' 
+        id='title' 
+        label='書籍タイトル' 
+        pattern={{}} 
+        errors={errors.title} 
+        defaultValues={defaultValues.title} />
 
-        <p className='mb-10'><label htmlFor="url">URL：</label>
-        <input type="text" 
-        {...register("url", {
-          required: '必須です'
-        })} /><br />
-        <span className="error">{errors.url?.message}</span></p>
+        <InputItem 
+        register={register} 
+        type='text' 
+        id='url' 
+        label='URL' 
+        pattern={{
+          value: /[\w!?/+\-_~=;.,*&@#$%()'[\]]+$/i,
+          message: 'URLの形式が不正です'
+        }} 
+        errors={errors.url} 
+        defaultValues={defaultValues.url} />
 
-        <p className='mb-10'><label htmlFor="detail">内容：</label>
-        <textarea rows="5" cols="33"
-        {...register("detail", {
-          required: '必須です'
-        })} /><br />
-        <span className="error">{errors.detail?.message}</span></p>
+        <TextAreaItem 
+        register={register} 
+        type='text' 
+        id='detail' 
+        label='概要' 
+        pattern={{}} 
+        errors={errors.detail} 
+        defaultValues={defaultValues.detail} />
 
-        <p className='mb-10'><label htmlFor="review">レビュー：</label>
-        <textarea rows="5" cols="33"
-        {...register("review", {
-          required: '必須です'
-        })} /><br />
-        <span className="error">{errors.review?.message}</span></p>
+        <TextAreaItem 
+        register={register} 
+        type='text' 
+        id='review' 
+        label='レビュー' 
+        pattern={{}} 
+        errors={errors.review} 
+        defaultValues={defaultValues.review} />
 
         <p className='flex justify-center mt-10'><button type="submit">送信</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>

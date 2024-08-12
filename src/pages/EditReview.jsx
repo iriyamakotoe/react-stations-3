@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { useParams } from "react-router-dom";
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
+import { TextAreaItem } from "../components/TextAreaItem"
 import { DleteReviewButton } from "../components/DleteReviewButton"
 import { useFetchBook } from "../components/useFetchBook"
 
@@ -53,6 +54,9 @@ export const EditReview = () => {
       console.log(json)
       setBookData(json)
       setSuccessMessage(true)
+      setTimeout(() => {
+        setSuccessMessage(false)
+      }, "3000")
     })
     .catch(() => {
       console.log('error')
@@ -98,7 +102,7 @@ export const EditReview = () => {
         errors={errors.url} 
         defaultValues={defaultValues.url} />
 
-        <InputItem 
+        <TextAreaItem 
         register={register} 
         type='text' 
         id='detail' 
@@ -107,7 +111,7 @@ export const EditReview = () => {
         errors={errors.detail} 
         defaultValues={defaultValues.detail} />
 
-        <InputItem 
+        <TextAreaItem 
         register={register} 
         type='text' 
         id='review' 

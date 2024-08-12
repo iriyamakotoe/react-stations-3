@@ -21,38 +21,35 @@ body {
     color: #231815;
 }
 main {
+    position: relative;
     @include mx.sign-content-width;
 }
-h2.page-title {
+main h2.page-title {
     font-size: 26px;
     font-size: 2.6rem;
     margin-bottom: 1em;
     text-align: center;
     font-weight: bold;
 }
-input:not([type="file"]),
-button,
-textarea {
+main input:not([type="file"]),
+main button,
+main textarea,
+main .btn {
     border: 1px solid var.$gray-light;
     padding: 5px !important;
     border-radius: 3px;
     vertical-align: middle;
 }
-button {
+main button,
+main .btn {
+    display: block;
     background-color: var.$gray !important;
     color: #fff !important;
     padding: 5px 20px !important;
 }
-button:disabled {
+main button:disabled {
     opacity: 0.3;
 }
-.error {
+main .error {
     color: var.$red;
-}
-main {
-    position: relative;
-}
-.loading {
-    opacity: 0;
-    transition: all 3s ease-out;;
 }
