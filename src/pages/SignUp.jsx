@@ -56,7 +56,7 @@ export const SignUp = () => {
       <h2 className='page-title'>新規ユーザー登録</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
 
-      <InputItem 
+        <InputItem 
         register={register} 
         type='text' 
         id='name' 

@@ -20,7 +20,6 @@ export const Header = () => {
     .then(res => res.json())
     .then(json => {
       setProfile(json)
-      // console.log(profile)
     })
   }
   useEffect(() => {
@@ -28,6 +27,7 @@ export const Header = () => {
       isSignIn()
     }
   }, [])
+  
   const isSignOut = () => {
     console.log("isSignOut")
     removeCookie('token')
