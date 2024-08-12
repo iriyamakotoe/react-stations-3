@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
+import { Helmet } from 'react-helmet'
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
 import "./login.scss"
@@ -42,6 +43,10 @@ export const Login = () => {
 
   return (
     <>
+    <Helmet>
+      <title>ログイン</title>
+      <meta name="description" content='ログイン' />
+    </Helmet>
     <Header />
     <main>
       <h2 className='page-title'>ログイン</h2>

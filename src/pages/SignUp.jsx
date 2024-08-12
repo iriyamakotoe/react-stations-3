@@ -2,10 +2,11 @@ import React, { useState, useRef } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
+import { Helmet } from 'react-helmet'
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
 import { UploadFile } from "../uploadfile.jsx"
-import "./signup.scss";
+// import "./signup.scss"
 
 export const SignUp = () => {
   const [cookies, setCookie, ] = useCookies()
@@ -51,6 +52,10 @@ export const SignUp = () => {
 
   return (
     <>
+    <Helmet>
+      <title>新規ユーザー登録</title>
+      <meta name="description" content='新規ユーザー登録' />
+    </Helmet>
     <Header />
     <main>
       <h2 className='page-title'>新規ユーザー登録</h2>

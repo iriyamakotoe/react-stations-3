@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"
+import { Helmet } from 'react-helmet'
 import { Header } from "../components/Header"
 import { DleteReviewButton } from "../components/DleteReviewButton"
 import { useFetchBook } from "../components/useFetchBook"
@@ -22,6 +23,10 @@ export const DetailReview = () => {
 
   return (
     <>
+    <Helmet>
+    <title>詳細画面：{bookData.title}</title>
+    <meta name="description" content={bookData.title+'のレビュー詳細'} />
+    </Helmet>
     <Header />
     <main>
       <h2 className='page-title'>書籍タイトル：{bookData.title}</h2>

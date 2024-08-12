@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
+import { Helmet } from 'react-helmet'
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
 import { TextAreaItem } from "../components/TextAreaItem"
@@ -48,6 +49,10 @@ export const NewReview = () => {
 
   return (
     <>
+    <Helmet>
+      <title>書籍レビュー登録</title>
+      <meta name="description" content='書籍レビュー登録' />
+    </Helmet>
     <Header />
     <main>
       <h2 className='page-title'>書籍レビュー登録</h2>

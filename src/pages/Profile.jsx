@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { useRecoilState } from 'recoil'
 import { profileAtom } from "../store/atom"
 import { UploadFile } from "../uploadfile.jsx"
+import { Helmet } from 'react-helmet'
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
 import iconUser from "../assets/icon_user.png"
@@ -32,13 +33,11 @@ export const Profile = () => {
   const onSubmit = async (data) => {
     setErrorMessage('')
 
-    new Promise(resolve => {
+    new Promise(resolve => { // もっと良い書き方があるのかも？
       if(inputFileRef.current.files[0]) {
-        console.log('ユーザーアイコン変更あり')
         UploadFile(inputFileRef.current.files[0], cookies.token,profile)
-        setTimeout(() => resolve(), 1000); // 1秒後にresolve
+        setTimeout(() => resolve(), 1000);
       } else {
-        console.log('ユーザーアイコン変更なし')
         resolve()
       }
     })
@@ -75,6 +74,10 @@ export const Profile = () => {
 
   return (
     <>
+    <Helmet>
+      <title>ユーザー情報編集</title>
+      <meta name="description" content='ユーザー情報編集' />
+    </Helmet>
     <Header />
     <main>
       <h2 className='page-title'>ユーザー情報編集</h2>

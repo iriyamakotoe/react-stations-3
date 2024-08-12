@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"
+import { Helmet } from 'react-helmet'
 import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
 import { TextAreaItem } from "../components/TextAreaItem"
@@ -76,6 +77,10 @@ export const EditReview = () => {
 
   return (
     <>
+    <Helmet>
+    <title>編集画面：{bookData.title}</title>
+    <meta name="description" content={bookData.title+'のレビュー編集'} />
+    </Helmet>
     <Header />
     <main>
       <h2 className='page-title'>書籍レビュー編集</h2>

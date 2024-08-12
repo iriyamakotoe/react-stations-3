@@ -30,7 +30,7 @@ export const Header = () => {
     })
   }
 
-  const isSignOut = () => {
+  const isSignOut = () => { // もっと良い書き方があるのかも？
     console.log("isSignOut")
     new Promise(resolve => {
       removeCookie('token')
