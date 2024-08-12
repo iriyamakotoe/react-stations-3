@@ -30,13 +30,10 @@ export const Header = () => {
     })
   }
 
-  const isSignOut = () => { // もっと良い書き方があるのかも？
+  const isSignOut = () => {
     console.log("isSignOut")
-    new Promise(resolve => {
-      removeCookie('token')
-      setTimeout(() => resolve(), 100);
-    })
-    .then(() => navigate('/login'));
+    removeCookie('token')
+    navigate('/login')
   }
 
   return (
