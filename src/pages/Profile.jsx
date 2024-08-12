@@ -15,7 +15,6 @@ export const Profile = () => {
   const [profile, setProfile ] = useRecoilState(profileAtom)
   const defaultValues = {
     name: profile.name,
-    iconUrl: profile.iconUrl
   }
   const values = {...defaultValues}
   const {
