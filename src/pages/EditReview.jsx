@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useForm } from "react-hook-form"
 import { useParams } from "react-router-dom"
@@ -34,8 +35,8 @@ export const EditReview = () => {
   const [successMessage, setSuccessMessage] = useState(false)
 
   const onSubmit = (data) => {
-    console.log(data,urlParameters.id,cookies.token)
     setErrorMessage('')
+    
     fetch('https://railway.bookreview.techtrain.dev/books/'+ urlParameters.id, {
       method: 'PUT',
       headers: {
@@ -64,7 +65,7 @@ export const EditReview = () => {
     });
   }
 
-  if(isLoading) {
+  if (isLoading) {
     return (
       <>
       <Header />
@@ -75,6 +76,8 @@ export const EditReview = () => {
     )
   }
 
+  if (!bookData.isMine) return <Navigate to="/" />
+
   return (
     <>
     <Helmet>
@@ -84,7 +87,6 @@ export const EditReview = () => {
     <Header />
     <main>
       <h2 className='page-title'>書籍レビュー編集</h2>
-
       <form onSubmit={handleSubmit(onSubmit)} noValidate="novalidate">
         <InputItem 
         register={register} 
@@ -128,7 +130,7 @@ export const EditReview = () => {
         <p className='flex justify-center mt-10'><button type="submit">更新</button><DleteReviewButton bookData={bookData} /></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
       </form>
- 
+
       {successMessage && (<p className='success bg-orange-50 text-orange-600 mb-10 p-3'>更新しました！</p>)}
     </main>
     </>
