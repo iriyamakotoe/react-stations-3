@@ -19,8 +19,8 @@ export const Router = () => {
         <Route exact path={`/login`} element={<Login />} />
         <Route exact path={`/profile`} element={cookies.token ? <Profile /> : <Navigate replace to="/login" />} />
         <Route exact path={`/new`} element={cookies.token ? <NewReview /> : <Navigate replace to="/login" />} />
-        <Route exact path={`/detail/:id`} element={<DetailReview />} />
-        <Route exact path={`/edit/:id`} element={<EditReview />} />
+        <Route exact path={`/detail/:id`} element={cookies.token ? <DetailReview /> : <Navigate replace to="/login" />} />
+        <Route exact path={`/edit/:id`} element={cookies.token ? <EditReview /> : <Navigate replace to="/login" />} />
       </Routes>
     </BrowserRouter>
   );

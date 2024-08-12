@@ -39,7 +39,7 @@ export const NewReview = () => {
         setSuccessMessage(true)
         setTimeout(() => {
           setSuccessMessage(false)
-        }, "3000")
+        }, '3000')
       } else {
         setErrorMessage(`エラーが発生しました：${res.status}`)
       }

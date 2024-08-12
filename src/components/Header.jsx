@@ -10,6 +10,13 @@ export const Header = () => {
   const navigate = useNavigate()
   const [cookies, , removeCookie ] = useCookies()
   const [profile, setProfile ] = useRecoilState(profileAtom)
+
+  useEffect(() => {
+    if(cookies.token) {
+      isSignIn()
+    }
+  }, [])
+
   const isSignIn = () => {
     console.log('isSignIn')
     fetch('https://railway.bookreview.techtrain.dev/users', {
@@ -22,16 +29,14 @@ export const Header = () => {
       setProfile(json)
     })
   }
-  useEffect(() => {
-    if(cookies.token) {
-      isSignIn()
-    }
-  }, [])
-  
+
   const isSignOut = () => {
     console.log("isSignOut")
-    removeCookie('token')
-    navigate('/login')
+    new Promise( resolve => {
+      removeCookie('token')
+      resolve();
+    })
+    .then(() => navigate('/login'));
   }
 
   return (

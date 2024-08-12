@@ -11,16 +11,12 @@ export const ReviewList = () => {
   const [isLoading, setIsLoading ] = useRecoilState(isLoadingAtom)
   const [counter, ] = useRecoilState(counterAtom)
 
-  // ローディング確認のため処理を遅延させるためのダミーの休止処理
-  // const sleep = delay => new Promise(resolve => setTimeout(resolve,delay))
-
   useEffect(() => {
     counter == null && setIsLoading(true)
     fetchReview()
   }, [counter])
   
   const fetchReview = async () => {
-    // await sleep(1000)
     console.log(counter)
     let request
     if (cookies.token) {

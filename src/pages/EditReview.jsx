@@ -56,7 +56,7 @@ export const EditReview = () => {
       setSuccessMessage(true)
       setTimeout(() => {
         setSuccessMessage(false)
-      }, "3000")
+      }, '3000')
     })
     .catch(() => {
       console.log('error')

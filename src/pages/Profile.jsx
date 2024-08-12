@@ -57,7 +57,7 @@ export const Profile = () => {
       setSuccessMessage(true)
       setTimeout(() => {
         setSuccessMessage(false)
-      }, "3000")
+      }, '3000')
     })
   }
 
