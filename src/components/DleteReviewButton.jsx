@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 
@@ -22,7 +22,7 @@ export const DleteReviewButton = (props) => {
 
   return (
     <>
-    <button onClick={(e) => handleDeleteClick(props.bookData.id)}>削除</button>
+    <button onClick={() => handleDeleteClick(props.bookData.id)}>削除</button>
     </>
   );
 };

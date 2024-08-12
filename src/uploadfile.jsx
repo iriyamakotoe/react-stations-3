@@ -15,9 +15,7 @@ export const UploadFile = (file, token) => {
             body: data
             })
             .then(res => {
-            if (res.ok) return res.json()
-                else
-            props.setErrorMessage(`画像登録エラーが発生しました：${res.status}`)
+                if (res.ok) return res.json()
             })
             .then(json => {
                 return json.iconUrl

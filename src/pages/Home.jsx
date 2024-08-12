@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useCookies } from 'react-cookie'
+import React from 'react'
 import { Header } from "../components/Header";
 import { ReviewList } from "../components/ReviewList"
 import { Pagenation } from "../components/Pagenation"

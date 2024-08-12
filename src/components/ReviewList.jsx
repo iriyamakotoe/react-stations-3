@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { useRecoilState } from 'recoil'
@@ -68,7 +68,7 @@ export const ReviewList = () => {
     <>
       {cookies.token ? (
         <ul className="review-list">
-        {review.map((obj) => <li key={obj.id} className=''><Link to={'/detail/' + obj.id} onClick={(e) => handleClick(obj.id)}>{obj.title}</Link></li>)}
+        {review.map((obj) => <li key={obj.id} className=''><Link to={'/detail/' + obj.id} onClick={() => handleClick(obj.id)}>{obj.title}</Link></li>)}
         </ul>
       ) : (
         <ul className="review-list">
