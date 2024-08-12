@@ -18,7 +18,7 @@ export const UploadFile = (file, token) => {
                 if (res.ok) return res.json()
             })
             .then(json => {
-                return json.iconUrl
+                console.log('新画像',json.iconUrl)
             })
         },
         error(err) {

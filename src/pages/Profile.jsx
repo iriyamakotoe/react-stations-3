@@ -4,10 +4,10 @@ import { useForm } from "react-hook-form"
 import { useRecoilState } from 'recoil'
 import { profileAtom } from "../store/atom"
 import { UploadFile } from "../uploadfile.jsx"
-import { Header } from "../components/Header";
+import { Header } from "../components/Header"
 import { InputItem } from "../components/InputItem"
 import iconUser from "../assets/icon_user.png"
-import "./profile.scss";
+import "./profile.scss"
 
 export const Profile = () => {
   const [cookies, , ] = useCookies()
@@ -29,35 +29,48 @@ export const Profile = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [successMessage, setSuccessMessage] = useState(false)
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setErrorMessage('')
-    UploadFile(inputFileRef.current.files[0], cookies.token,profile)
 
-    fetch('https://railway.bookreview.techtrain.dev/users', {
-      method: 'PUT',
-      headers:{
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${cookies.token}`
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => {
-      if (res.ok) {
-        return res.json()
+    new Promise(resolve => {
+      if(inputFileRef.current.files[0]) {
+        console.log('ユーザーアイコン変更あり')
+        UploadFile(inputFileRef.current.files[0], cookies.token,profile)
+        setTimeout(() => resolve(), 1000); // 1秒後にresolve
       } else {
-        setErrorMessage(`エラーが発生しました：${res.status}`)
+        console.log('ユーザーアイコン変更なし')
+        resolve()
       }
     })
-    .then(json => {
-      setProfile({
-        'name': json.name,
-        // 'iconUrl': icon
+    .then(() => {
+      fetch('https://railway.bookreview.techtrain.dev/users', {
+        method: 'PUT',
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${cookies.token}`
+        },
+        body: JSON.stringify(data)
       })
-      setSuccessMessage(true)
-      setTimeout(() => {
-        setSuccessMessage(false)
-      }, '3000')
-    })
+      .then(res => {
+        if (res.ok) {
+          fetch('https://railway.bookreview.techtrain.dev/users', {
+            headers:{
+              'Authorization': `Bearer ${cookies.token}`
+            }
+          })
+          .then(res => res.json())
+          .then(json => {
+            setProfile(json)
+          })
+          setSuccessMessage(true)
+          setTimeout(() => {
+            setSuccessMessage(false)
+          }, '3000')
+        } else {
+          setErrorMessage(`エラーが発生しました：${res.status}`)
+        }
+      })
+    });
   }
 
   return (
@@ -93,7 +106,7 @@ export const Profile = () => {
       </form>
       </main>
     </>
-  );
-};
+  )
+}
 
 export default Profile;

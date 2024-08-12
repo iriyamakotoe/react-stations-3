@@ -94,7 +94,7 @@ export const SignUp = () => {
         <input type="file" accept="image/png, image/jpg" ref={inputFileRef} /><br />
         <span className='text-gray sqtext-s mt-3 inline-block'>※登録できる画像：拡張子 - jpg・png、サイズ - 1MB以内</span></p>
 
-        {/* <InputFileItem errorMessage={errorMessage} setErrorMessage={setErrorMessage} /> */}
+        <InputFileItem />
 
         <p className='flex justify-center mt-10'><button type="submit">登録</button></p>
         <p className="error form-error mt-5 text-center">{errorMessage}</p>
