@@ -5,51 +5,52 @@
  共通要素
 ============================================ */
 html {
-    /*****************
+  /*****************
     remのベース: 10px
     例：font-size: 14px; （ie8用）
     　　font-size: 1.4rem;
     *****************/
-    font-size: 62.5%;
-    /* ページに常にスクロールバーを表示 */
-    overflow-y: scroll;
+  font-size: 62.5%;
+  /* ページに常にスクロールバーを表示 */
+  overflow-y: scroll;
 }
 body {
-    font-family: "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "游ゴシック", YuGothic, "メイリオ", "Meiryo", sans-serif;
-    font-size: 15px;
-    font-size: 1.5rem;
-    color: #231815;
+  font-family: "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "游ゴシック",
+    YuGothic, "メイリオ", "Meiryo", sans-serif;
+  font-size: 15px;
+  font-size: 1.5rem;
+  color: #231815;
 }
 main {
-    position: relative;
-    @include mx.sign-content-width;
+  position: relative;
+  @include mx.sign-content-width;
 }
 main h2.page-title {
-    font-size: 26px;
-    font-size: 2.6rem;
-    margin-bottom: 1em;
-    text-align: center;
-    font-weight: bold;
+  font-size: 26px;
+  font-size: 2.6rem;
+  margin-bottom: 1em;
+  text-align: center;
+  font-weight: bold;
 }
 main input:not([type="file"]),
 main button,
 main textarea,
 main .btn {
-    border: 1px solid var.$gray-light;
-    padding: 5px !important;
-    border-radius: 3px;
-    vertical-align: middle;
+  border: 1px solid var.$gray-light;
+  padding: 5px !important;
+  border-radius: 3px;
+  vertical-align: middle;
 }
 main button,
 main .btn {
-    display: block;
-    background-color: var.$gray !important;
-    color: #fff !important;
-    padding: 5px 20px !important;
+  display: block;
+  background-color: var.$gray !important;
+  color: #fff !important;
+  padding: 5px 20px !important;
 }
 main button:disabled {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 main .error {
-    color: var.$red;
+  color: var.$red;
 }
