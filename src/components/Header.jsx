@@ -32,9 +32,11 @@ export const Header = () => {
 
   const isSignOut = () => {
     console.log("isSignOut")
-    new Promise( resolve => {
-      removeCookie('token')
-      resolve();
+    new Promise(resolve => {
+      // setTimeout(() => {
+        removeCookie('token')
+        resolve();
+      // }, 3000);
     })
     .then(() => navigate('/login'));
   }
